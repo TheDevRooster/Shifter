@@ -1,10 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://ynid5vi3tdfn"]
+[gd_scene load_steps=4 format=3 uid="uid://ynid5vi3tdfn"]
 
 [ext_resource type="Script" uid="uid://u1ndfthdgsyb" path="res://Scripts/Player/player.gd" id="1_a3d8c"]
 [ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="2_xpcdj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a3d8c"]
+radius = 41.01219
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_a3d8c")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_xpcdj")
+
+[node name="InteractZone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractZone"]
+position = Vector2(71, -1)
+shape = SubResource("CircleShape2D_a3d8c")
+debug_color = Color(0.9992406, 0, 0.13277727, 0.41960785)
+
+[node name="InteractNotification" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -93)
+scale = Vector2(0.2890625, 0.2890625)
+texture = ExtResource("2_xpcdj")
+
+[connection signal="area_entered" from="InteractZone" to="." method="_on_interact_zone_area_entered"]
+[connection signal="area_exited" from="InteractZone" to="." method="_on_interact_zone_area_exited"]
