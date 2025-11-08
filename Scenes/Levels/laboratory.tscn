@@ -1,0 +1,131 @@
+[gd_scene load_steps=7 format=4 uid="uid://b5g6bjh4ittaj"]
+
+[ext_resource type="Texture2D" uid="uid://ctyywcehhwfwi" path="res://Assets/SpriteSheet/Lab.png" id="1_qea1b"]
+[ext_resource type="Script" uid="uid://fouadgslr34" path="res://Scripts/Systems/console_interaction.gd" id="2_p1pys"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qea1b"]
+texture = ExtResource("1_qea1b")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+7:0/0 = 0
+7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+8:0/0 = 0
+8:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:1/0 = 0
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:1/0 = 0
+5:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+15:1/0 = 0
+0:2/0 = 0
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:2/0 = 0
+5:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+12:2/0 = 0
+12:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -8, -2.374136, 1.7806015, -2.5719795, 8, 8, 8)
+13:2/0 = 0
+13:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+14:2/0 = 0
+14:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+15:2/0 = 0
+15:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:3/0 = 0
+2:3/0 = 0
+2:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:3/0 = 0
+3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:3/0 = 0
+4:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:3/0 = 0
+5:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+10:3/0 = 0
+12:3/0 = 0
+12:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2.9364696, -8, -2.9493866, 8, 8, 8, 8, -8)
+13:3/0 = 0
+15:3/0 = 0
+15:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-0.19784546, -8, 8, -8, 8, 8, -8, 8, -8, -8)
+0:4/0 = 0
+12:4/0 = 0
+12:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2.9364696, -8, -2.9493866, 8, 8, 8, 8, -8)
+13:4/0 = 0
+15:4/0 = 0
+15:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-0.19784546, -8, 8, -8, 8, 8, -8, 8, -8, -8)
+7:5/0 = 0
+8:5/0 = 0
+9:5/0 = 0
+10:5/0 = 0
+12:5/0 = 0
+12:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2.9364696, -8, -2.9493866, 8, 8, 8, 8, -8)
+13:5/0 = 0
+15:5/0 = 0
+15:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-0.19784546, -8, 8, -8, 8, 8, -8, 8, -8, -8)
+12:6/0 = 0
+12:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2.970241, -8, -2.9727697, 8, 8, 8, 8, -8)
+13:6/0 = 0
+13:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+14:6/0 = 0
+14:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+15:6/0 = 0
+8:7/0 = 0
+9:7/0 = 0
+10:7/0 = 0
+15:7/0 = 0
+15:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+8:8/0 = 0
+8:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+9:8/0 = 0
+9:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+10:8/0 = 0
+10:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_p1pys"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_qea1b")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fgok1"]
+size = Vector2(8.856796, 10.406708)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1pys"]
+size = Vector2(8, 7)
+
+[node name="Laboratory" type="TileMapLayer"]
+texture_filter = 1
+tile_map_data = PackedByteArray("AAAAAAAAAAACAAAAAAAAAA0AAAACAAMAAAAAAAwAAAACAAEAAAAAAAsAAAACAAIAAAAAAAoAAAACAAEAAAAAAAkAAAACAAEAAAAAAAgAAAACAAEAAAAAAAcAAAACAAIAAAAAAAYAAAACAAEAAAAAAAUAAAACAAEAAAAAAAQAAAACAAEAAAAAAAMAAAACAAIAAAAAAAIAAAACAAEAAAAAAAEAAAACAAEAAAABAAAAAAAEAAAAAAACAAAAAAAHAAAAAAADAAAAAAADAAAAAAAEAAAAAAAHAAAAAAAHAA0AAAAEAAMAAAAGAA0AAAAEAAMAAAAFAA0AAAAEAAMAAAAEAA0AAAADAAMAAAADAA0AAAAEAAMAAAACAA0AAAAEAAMAAAABAA0AAAAEAAMAAAABAAEAAAAAAAAAAAABAAIAAAAAAAAAAAABAAMAAAAAAAAAAAABAAQAAAAAAAAAAAABAAUAAAAAAAAAAAABAAYAAAAAAAAAAAABAAcAAAAAAAAAAAABAAgAAAAAAAAAAAABAAkAAAAAAAMAAAABAAoAAAAAAAQAAAABAAsAAAAAAAIAAAABAAwAAAAAAAAAAAACAAwAAAAAAAAAAAADAAwAAAAAAAAAAAAEAAwAAAAAAAAAAAAFAAwAAAAAAAAAAAAGAAwAAAAAAAAAAAAGAAEAAAAAAAAAAAAFAAEAAAAAAAAAAAAEAAEAAAAAAAAAAAADAAEAAAAAAAAAAAACAAEAAAAAAAAAAAACAAIAAAAAAAAAAAACAAMAAAAAAAAAAAACAAQAAAAAAAAAAAACAAUAAAAAAAAAAAACAAYAAAAAAAAAAAACAAcAAAAAAAAAAAACAAgAAAAAAAAAAAACAAkAAAAAAAAAAAACAAoAAAAAAAAAAAACAAsAAAAAAAAAAAADAAsAAAABAAAAAAADAAoAAAAAAAAAAAADAAkAAAABAAAAAAADAAgAAAAAAAAAAAADAAUAAAAAAAAAAAADAAQAAAABAAAAAAADAAMAAAAAAAAAAAADAAIAAAABAAAAAAAEAAIAAAAAAAAAAAAEAAMAAAAAAAAAAAAEAAQAAAAAAAAAAAAEAAUAAAAAAAAAAAAEAAYAAAAAAAAAAAAEAAcAAAAAAAAAAAAEAAgAAAAAAAAAAAAEAAkAAAAAAAAAAAAEAAoAAAAAAAAAAAAEAAsAAAAAAAAAAAAFAAsAAAAIAAgAAAAFAAoAAAAIAAcAAAAFAAkAAAAAAAAAAAAFAAgAAAAMAAYAAAAFAAcAAAAMAAUAAAAFAAYAAAAMAAQAAAAFAAUAAAAMAAMAAAAFAAQAAAAMAAIAAAAFAAMAAAAAAAAAAAAGAAIAAAAAAAAAAAAGAAMAAAAAAAAAAAAGAAQAAAANAAIAAAAGAAUAAAANAAMAAAAGAAYAAAANAAQAAAAGAAcAAAANAAUAAAAGAAgAAAANAAYAAAAGAAkAAAAAAAAAAAAGAAoAAAAJAAcAAAAGAAsAAAAJAAgAAAAHAAsAAAAKAAgAAAAHAAoAAAAAAAAAAAAHAAkAAAAAAAAAAAAHAAgAAAAOAAYAAAAHAAQAAAAOAAIAAAAHAAMAAAAAAAAAAAAHAAIAAAAAAAAAAAAFAAAAAAADAAAAAAAGAAAAAAAHAAAAAAAHAAAAAAAEAAAAAAAIAAAAAAAFAAAAAAAIAAIAAAAFAAEAAAAIAAEAAAAFAAEAAAAIAAMAAAAFAAEAAAAIAAQAAAAPAAIAAAAIAAUAAAAPAAMAAAAIAAYAAAAPAAQAAAAIAAcAAAAPAAUAAAAIAAgAAAAPAAYAAAAIAAkAAAAFAAEAAAAIAAoAAAAFAAEAAAAIAAsAAAAFAAEAAAAIAAwAAAAFAAEAAAAIAA0AAAAFAAMAAAAHAAcAAAAAAAAAAAAHAAYAAAAAAAAAAAAHAAUAAAAAAAAAAAAHAAwAAAAAAAAAAAADAAcAAAAAAAAAAAADAAYAAAAAAAAAAAAFAAIAAAABAAAAAAAHAAEAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_p1pys")
+
+[node name="Console Interaction" type="Area2D" parent="."]
+scale = Vector2(0.99909276, 0.9991752)
+script = ExtResource("2_p1pys")
+player_interactable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Console Interaction"]
+position = Vector2(103.09352, 187.15436)
+scale = Vector2(0.7785527, 0.5248967)
+shape = SubResource("RectangleShape2D_fgok1")
+
+[node name="Door1" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Door1"]
+position = Vector2(40, 12)
+shape = SubResource("RectangleShape2D_p1pys")
+
+[node name="Door2" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Door2"]
+position = Vector2(104, 12)
+shape = SubResource("RectangleShape2D_p1pys")
+
+[node name="Door3" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Door3"]
+position = Vector2(72, 12)
+shape = SubResource("RectangleShape2D_p1pys")

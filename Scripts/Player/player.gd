@@ -1,12 +1,13 @@
 class_name Player
 extends CharacterBody2D
 
-
-const SPEED = 300.0
-var health = 100
 @onready var interact_area: Area2D = $InteractZone
 @onready var interact_icon: Sprite2D = $InteractNotification
+@onready var attack_box: Area2D = $AttackBox
+@export var SPEED :float = 300.0
+var health = 100
 var can_interact = false
+var current_interaction_function
 func _physics_process(_delta: float) -> void:
 
 	#### Start of player Movement ####
@@ -17,8 +18,10 @@ func _physics_process(_delta: float) -> void:
 		#handles horiztonal rotation of interaction_zone to always be in front of the player
 		if horizontal_direction > 0:
 			interact_area.rotation_degrees = 0
+			attack_box.rotation_degrees = 0
 		elif horizontal_direction < 0:
 			interact_area.rotation_degrees = 180
+			attack_box.rotation_degrees = 180
 		velocity.x = horizontal_direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
@@ -27,8 +30,10 @@ func _physics_process(_delta: float) -> void:
 	if vertical_direction:
 		if vertical_direction > 0 : 
 			interact_area.rotation_degrees = 90
+			attack_box.rotation_degrees = 90
 		elif vertical_direction < 0:  
 			interact_area.rotation_degrees = 270
+			attack_box.rotation_degrees = 270
 		velocity.y = vertical_direction * SPEED
 	else:
 		velocity.y = move_toward(velocity.y, 0, SPEED)
@@ -45,28 +50,27 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("player_ability_2"):
 		ability_2()
 	if Input.is_action_just_pressed("player_interact") and can_interact:
-		interact()
+		print("Interacted")
 
 	#### End of player Inputs ####
 
 func ability_1():
-	print("woo")
+
+	attack_box.show()
+	await get_tree().create_timer(.3).timeout
+	attack_box.hide()
 
 func ability_2():
 	print("woa")
 
-#Function to see if we can interact with something
-func interact():
-	print("interacted")
-
-
 
 func _on_interact_zone_area_entered(area: Area2D) -> void:
-	print(area)
 	if area is interact_zone:
 		if area.player_interactable:
-			can_interact = true
-			interact_icon.show()
+			current_interaction_function = area.interaction_function
+			if !can_interact:
+				can_interact = true
+				interact_icon.show()
 	else:
 		pass
 
@@ -74,6 +78,7 @@ func _on_interact_zone_area_entered(area: Area2D) -> void:
 func _on_interact_zone_area_exited(area: Area2D) -> void:
 	if area is interact_zone:
 		if area.player_interactable:
+			current_interaction_function = null
 			can_interact = false
 			interact_icon.hide()
 	else:

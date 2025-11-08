@@ -7,6 +7,7 @@ radius = 50.159744
 
 [node name="Interactable_Zone" type="Area2D"]
 script = ExtResource("1_uskd2")
+player_interactable = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_uskd2")
