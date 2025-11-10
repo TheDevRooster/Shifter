@@ -5,9 +5,10 @@ extends CharacterBody2D
 @onready var interact_icon: Sprite2D = $InteractNotification
 @onready var attack_box: Area2D = $AttackBox
 @export var SPEED :float = 300.0
+signal interacted(target)
 var health = 100
 var can_interact = false
-var current_interaction_function
+var current_interaction
 func _physics_process(_delta: float) -> void:
 
 	#### Start of player Movement ####
@@ -50,7 +51,7 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("player_ability_2"):
 		ability_2()
 	if Input.is_action_just_pressed("player_interact") and can_interact:
-		print("Interacted")
+		interacted.emit(current_interaction)
 
 	#### End of player Inputs ####
 
@@ -67,10 +68,10 @@ func ability_2():
 func _on_interact_zone_area_entered(area: Area2D) -> void:
 	if area is interact_zone:
 		if area.player_interactable:
-			current_interaction_function = area.interaction_function
 			if !can_interact:
 				can_interact = true
 				interact_icon.show()
+				current_interaction = area
 	else:
 		pass
 
@@ -78,7 +79,6 @@ func _on_interact_zone_area_entered(area: Area2D) -> void:
 func _on_interact_zone_area_exited(area: Area2D) -> void:
 	if area is interact_zone:
 		if area.player_interactable:
-			current_interaction_function = null
 			can_interact = false
 			interact_icon.hide()
 	else:

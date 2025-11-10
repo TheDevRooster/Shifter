@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://dm53uf64su6ue"]
+
+[ext_resource type="Script" uid="uid://ck4bmipu18egi" path="res://Scripts/Screens/terminal_console.gd" id="1_fj2rq"]
+
+[node name="TerminalConsole" type="Control"]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_fj2rq")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 292.0
+offset_top = 166.0
+offset_right = 784.0
+offset_bottom = 497.0
+color = Color(0, 0.33333334, 0, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 230.0
+offset_top = 158.0
+offset_right = 855.0
+offset_bottom = 487.0
+text = "CONFIGURE PILLS "
+horizontal_alignment = 1
+vertical_alignment = 1

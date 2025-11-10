@@ -32,7 +32,7 @@ SPEED = 40.0
 
 [node name="AnimationSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_a3d8c")
-frame_progress = 0.9127337
+frame_progress = 0.00983957
 
 [node name="InteractZone" type="Area2D" parent="."]
 
@@ -64,7 +64,7 @@ debug_color = Color(0.60278785, 0.54267985, 0, 0.41960785)
 shape = SubResource("CapsuleShape2D_xpcdj")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(9.78, 9.78)
+zoom = Vector2(8.41, 8.41)
 
 [connection signal="area_entered" from="InteractZone" to="." method="_on_interact_zone_area_entered"]
 [connection signal="area_exited" from="InteractZone" to="." method="_on_interact_zone_area_exited"]

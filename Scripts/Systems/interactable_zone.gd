@@ -1,12 +1,11 @@
 class_name interact_zone
-
 extends Area2D
 
-signal interacted
+
 
 @export var player_interactable:bool
+func _ready() -> void:
+	add_to_group("Consoles")
 
-var interaction_function = saved_interaction
-
-func saved_interaction():
-	print("hi")
+func interaction():
+	return "Configure Zone interaction"

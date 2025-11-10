@@ -108,7 +108,7 @@ script = ExtResource("2_p1pys")
 player_interactable = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Console Interaction"]
-position = Vector2(103.09352, 187.15436)
+position = Vector2(103.09353, 190.15685)
 scale = Vector2(0.7785527, 0.5248967)
 shape = SubResource("RectangleShape2D_fgok1")
 
