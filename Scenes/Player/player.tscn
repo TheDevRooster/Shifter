@@ -1,10 +1,78 @@
-[gd_scene load_steps=7 format=3 uid="uid://ynid5vi3tdfn"]
+[gd_scene load_steps=22 format=3 uid="uid://ynid5vi3tdfn"]
 
 [ext_resource type="Script" uid="uid://u1ndfthdgsyb" path="res://Scripts/Player/player.gd" id="1_a3d8c"]
 [ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="2_xpcdj"]
+[ext_resource type="PackedScene" uid="uid://l03xd8cv6ylj" path="res://Scenes/Systems/Components/attack_component.tscn" id="3_mtuoh"]
+[ext_resource type="PackedScene" uid="uid://cn4ymqb6micuy" path="res://Scenes/Systems/Components/health_component.tscn" id="3_xpcdj"]
+[ext_resource type="Texture2D" uid="uid://ctyywcehhwfwi" path="res://Assets/SpriteSheet/Lab.png" id="5_dd0ac"]
+[ext_resource type="PackedScene" uid="uid://cfy28w6k4jbpt" path="res://Scenes/Systems/Components/hitbox_component.tscn" id="6_dd0ac"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dd0ac"]
+radius = 144.99818
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_dd0ac"]
+points = PackedVector2Array(57.99928, 0, 275.49658, -40.312508, 275.49658, 40.312508)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0u5uq"]
+radius = 348.25497
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_0u5uq"]
+points = PackedVector2Array(173.99783, -134.37503, 217.4973, -67.187515, 217.4973, 67.187515, 173.99783, 161.25003, 0, 0)
+
+[sub_resource type="Animation" id="Animation_0u5uq"]
+resource_name = "test"
+step = 0.014
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jlvik"]
+_data = {
+&"test": SubResource("Animation_0u5uq")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dd0ac"]
+size = Vector2(115.99855, 107.500015)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gk6dx"]
+atlas = ExtResource("5_dd0ac")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jhyir"]
+atlas = ExtResource("5_dd0ac")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74mp2"]
+atlas = ExtResource("5_dd0ac")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oikmp"]
+atlas = ExtResource("5_dd0ac")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06tpx"]
+atlas = ExtResource("5_dd0ac")
+region = Rect2(128, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_a3d8c"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gk6dx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jhyir")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_74mp2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oikmp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_06tpx")
+}],
+"loop": true,
+"name": &"Attack",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_xpcdj")
@@ -17,27 +85,90 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_a3d8c"]
 radius = 41.01219
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a3d8c"]
-radius = 22.0
-height = 132.0
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xpcdj"]
-radius = 66.0
-height = 146.0
+radius = 40.312504
+height = 80.62501
 
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(0.06896638, 0.0744186)
 script = ExtResource("1_a3d8c")
 SPEED = 40.0
 
+[node name="Phases" type="Node2D" parent="."]
+
+[node name="Wolf" parent="Phases" instance=ExtResource("3_mtuoh")]
+attack_damage = 5
+attack_cooldown = 0.0
+attack_position = Vector2(0, 0)
+attack_damage2 = 5
+attack_duration2 = 2.0
+attack_cooldown2 = 3.0
+attack_position2 = Vector2(0, 0)
+
+[node name="HitboxComponent" parent="Phases/Wolf" index="0"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Phases/Wolf/HitboxComponent" index="0"]
+z_index = 1
+shape = SubResource("CircleShape2D_dd0ac")
+debug_color = Color(0.65551734, 0.5174248, 0, 0.41960785)
+
+[node name="HitboxComponent2" parent="Phases/Wolf" instance=ExtResource("6_dd0ac")]
+scale = Vector2(0.9999999, 0.9999999)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Phases/Wolf/HitboxComponent2"]
+position = Vector2(14.49982, 0)
+shape = SubResource("ConvexPolygonShape2D_dd0ac")
+
+[node name="Bear" parent="Phases" instance=ExtResource("3_mtuoh")]
+attack_damage = 40
+attack_duration = 2.0
+attack_cooldown = 3.0
+attack_damage2 = 20
+attack_duration2 = 1.0
+attack_cooldown2 = 2.0
+
+[node name="HitboxComponent" parent="Phases/Bear" index="0"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Phases/Bear/HitboxComponent" index="0"]
+shape = SubResource("CircleShape2D_0u5uq")
+
+[node name="HitboxComponent2" parent="Phases/Bear" instance=ExtResource("6_dd0ac")]
+scale = Vector2(0.99999994, 0.99999994)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Phases/Bear/HitboxComponent2"]
+shape = SubResource("ConvexPolygonShape2D_0u5uq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_jlvik")
+}
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_xpcdj")]
+health = 20
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_dd0ac")]
+scale = Vector2(0.99999994, 0.99999994)
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(-3.4570257e-06, -4.805625e-06)
+scale = Vector2(0.9999999, 0.9999999)
+shape = SubResource("RectangleShape2D_dd0ac")
+debug_color = Color(0.43926212, 0.5994434, 0, 0.41960785)
+
 [node name="AnimationSprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.9999999, 0.9999999)
 sprite_frames = SubResource("SpriteFrames_a3d8c")
-frame_progress = 0.00983957
+autoplay = "default"
 
 [node name="InteractZone" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractZone"]
-position = Vector2(71, -1)
+visible = false
+position = Vector2(101.498726, -3.5527137e-15)
 shape = SubResource("CircleShape2D_a3d8c")
 debug_color = Color(0.9992406, 0, 0.13277727, 0.41960785)
 
@@ -47,24 +178,21 @@ position = Vector2(0, -93)
 scale = Vector2(0.2890625, 0.2890625)
 texture = ExtResource("2_xpcdj")
 
-[node name="AttackBox" type="Area2D" parent="."]
-visible = false
-
-[node name="Sprite2D" type="Sprite2D" parent="AttackBox"]
-position = Vector2(90.5, 2.9999971)
-scale = Vector2(0.30468747, 0.84375)
-texture = ExtResource("2_xpcdj")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackBox"]
-position = Vector2(90, 1)
-shape = SubResource("CapsuleShape2D_a3d8c")
-debug_color = Color(0.60278785, 0.54267985, 0, 0.41960785)
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 26.875002)
 shape = SubResource("CapsuleShape2D_xpcdj")
+debug_color = Color(0.9537192, 0.21786791, 1.1551381e-06, 0.41960785)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(8.41, 8.41)
 
+[node name="PhaseTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
 [connection signal="area_entered" from="InteractZone" to="." method="_on_interact_zone_area_entered"]
 [connection signal="area_exited" from="InteractZone" to="." method="_on_interact_zone_area_exited"]
+[connection signal="timeout" from="PhaseTimer" to="." method="_on_phase_timer_timeout"]
+
+[editable path="Phases/Wolf"]
+[editable path="Phases/Bear"]

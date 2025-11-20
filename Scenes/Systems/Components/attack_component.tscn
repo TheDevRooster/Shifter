@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://l03xd8cv6ylj"]
+
+[ext_resource type="PackedScene" uid="uid://cfy28w6k4jbpt" path="res://Scenes/Systems/Components/hitbox_component.tscn" id="1_at2x3"]
+[ext_resource type="Script" uid="uid://vj8j6mc0kfxx" path="res://Scripts/Systems/Components/attack_component.gd" id="1_xoj3x"]
+
+[node name="AttackComponent" type="Node2D"]
+script = ExtResource("1_xoj3x")
+attack_damage = null
+attack_duration = 1.0
+attack_cooldown = null
+attack_position = null
+attack_damage2 = null
+attack_duration2 = null
+attack_cooldown2 = null
+attack_position2 = null
+
+[node name="HitboxComponent" parent="." instance=ExtResource("1_at2x3")]
+
+[node name="Cooldown" type="Timer" parent="."]
+
+[connection signal="area_entered" from="HitboxComponent" to="." method="_on_hitbox_component_area_entered"]
+[connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]

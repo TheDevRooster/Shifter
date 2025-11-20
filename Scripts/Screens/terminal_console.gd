@@ -7,7 +7,7 @@ extends Control
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 var just_opened = false
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if just_opened:
 		just_opened = false
 		return

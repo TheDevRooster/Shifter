@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://f1ag7u0lef0s"]
+
+[ext_resource type="Script" uid="uid://di7jqw8scvade" path="res://Scripts/Entities/enemy.gd" id="1_x1rqp"]
+[ext_resource type="PackedScene" uid="uid://cn4ymqb6micuy" path="res://Scenes/Systems/Components/health_component.tscn" id="2_ubio8"]
+[ext_resource type="PackedScene" uid="uid://cfy28w6k4jbpt" path="res://Scenes/Systems/Components/hitbox_component.tscn" id="4_miwey"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="4_ubio8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_miwey"]
+size = Vector2(55.10819, 50.536247)
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_x1rqp")
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_ubio8")]
+health = 50
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_miwey")]
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(-1.500001, -2.0000029)
+scale = Vector2(2.195681, 2.3745332)
+shape = SubResource("RectangleShape2D_miwey")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("4_ubio8")

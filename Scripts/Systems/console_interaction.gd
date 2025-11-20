@@ -1,4 +1,7 @@
-extends interact_zone
+extends InteractZone
+
+
+
 
 signal console_interacted(screen_id)
 
@@ -7,5 +10,8 @@ var console_menu_scene = load("res://Scenes/Screens/terminal_console.tscn")
 
 
 func interaction() -> void:
-    console_interacted.emit("terminal_console")
+	if WorldData.console_unlocked:
+		console_interacted.emit("terminal_console")
+	else:
+		pass
 	

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://ck4bmipu18egi" path="res://Scripts/Screens/terminal_console.gd" id="1_fj2rq"]
 
 [node name="TerminalConsole" type="Control"]
-process_mode = 2
+process_mode = 3
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_fj2rq")

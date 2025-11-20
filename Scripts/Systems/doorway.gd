@@ -1,11 +1,18 @@
 class_name doorway
-extends interact_zone
+extends InteractZone
 
-signal level_change
+signal door_entered(area: String)
 
-@export var connected_area: PackedScene
+@export var connected_area: String
+@export var connected_area_spawn: Vector2
+
+func _ready():
+	if not self.is_connected("body_entered", _on_body_entered):
+		self.connect('body_entered', _on_body_entered)
 
 
 
-func on_interacted():
-	level_change.emit()	
+func _on_body_entered(body: Node2D) -> void:
+	if body is Player:
+		door_entered.emit(load(connected_area) as PackedScene)
+		
