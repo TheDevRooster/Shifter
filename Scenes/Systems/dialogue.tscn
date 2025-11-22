@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://danpvs6lxsyq"]
+
+[ext_resource type="Script" uid="uid://r6wupstt5khc" path="res://Scripts/Systems/dialogue.gd" id="1_e8gfu"]
+
+[node name="Dialogue" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_e8gfu")
+
+[node name="BackgroundColor" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 152.0
+offset_top = 41.0
+offset_right = 1030.0
+offset_bottom = 161.0
+color = Color(0, 0, 0, 1)
+
+[node name="Text" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 215.0
+offset_top = 64.0
+offset_right = 953.0
+offset_bottom = 203.0
+text = "test"
+autowrap_mode = 3

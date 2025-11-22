@@ -3,7 +3,7 @@ extends Node2D
 @onready var level_manager: Node = $LevelManager
 @onready var player: Player = $Player
 @onready var ui = $UI
-
+var dialogue_open = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -35,8 +35,16 @@ func _on_level_level_change(level_change: PackedScene) -> void:
 	player.position = next_level.spawnpoint
 	
 	
-func start_dialogue(text):
-	print(text)
+func start_dialogue(dialogue):
+	print(DialogueDB.Dialogue_active)
+	if DialogueDB.Dialogue_active:
+		pass
+	else:
+		ui.start_dialogue(dialogue)
+		get_tree().paused = true
+		DialogueDB.Dialogue_active = false
 
 func on_talked_to_scientist(conversation):
+	print("talking")
 	start_dialogue(conversation)
+	

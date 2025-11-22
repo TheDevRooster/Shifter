@@ -1,9 +1,15 @@
+extends Node
 
-
-
-
-var LAB_INTRO_1 = {
-	'text': 'Hello Experiment 4X342 to your new home. Please see your way to the ORANGE Terminal to commence the training.',
-	'Speaker': "Scientiest"	
+var Dialogue_active = false
+var Scientist = {
+	'Intro': {
+		'text': "Hello experiment 4x4332."
+	},
+	'Intro2': {
+		'text': "Please Proceed to the ORANGE terminal to configure your experiment."
+	},
+	'Intro3': {
+		'text': "Good. Now please proceed to chamber 1 for your first trial."
+	},
 	
 }

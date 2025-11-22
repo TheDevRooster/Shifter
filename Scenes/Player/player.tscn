@@ -188,7 +188,6 @@ zoom = Vector2(8.41, 8.41)
 
 [node name="PhaseTimer" type="Timer" parent="."]
 wait_time = 5.0
-autostart = true
 
 [connection signal="area_entered" from="InteractZone" to="." method="_on_interact_zone_area_entered"]
 [connection signal="area_exited" from="InteractZone" to="." method="_on_interact_zone_area_exited"]
