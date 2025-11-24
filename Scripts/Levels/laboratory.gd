@@ -26,21 +26,26 @@ func _process(_delta: float) -> void:
 
 
 func _on_interactable_zone_scientist_interacted_with() -> void:
-	print("interacting with scientist")
+	print("interacting")
+	print(DialogueDB.Dialogue_active)
 	#print('console unlocked: ', WorldData.console_unlocked)
 	#print('Talked to doctor 1 ', WorldData.talked_to_doctor_1)
-	if !WorldData.console_unlocked:
-		print("instance 1")
-		WorldData.console_unlocked = true
-		print(DialogueDB.Scientist.Intro.text)
-		talked_to_scientist.emit(DialogueDB.Scientist.Intro.text)
-	elif !WorldData.talked_to_doctor_1:
-		WorldData.talked_to_doctor_1 = true
-		open_door(door_1_position, door_1)
+	if DialogueDB.Dialogue_active:
+		print("neglecting open input")
+		pass
 	else:
-		print("instance final")
-		talked_to_scientist.emit(DialogueDB.Scientist.Intro2.text)
-		
+		if !WorldData.console_unlocked:
+			#print("instance 1")
+			WorldData.console_unlocked = true
+			print(DialogueDB.Scientist.Intro.text)
+			talked_to_scientist.emit(DialogueDB.Scientist.Intro.text)
+		elif !WorldData.talked_to_doctor_1:
+			WorldData.talked_to_doctor_1 = true
+			open_door(door_1_position, door_1)
+		else:
+			#print("instance final")
+			talked_to_scientist.emit(DialogueDB.Scientist.Intro2.text)
+			
 		
 func open_door(door_position: Vector2i, door: doorway):
 	#print("opening door")

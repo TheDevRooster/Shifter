@@ -36,15 +36,14 @@ func _on_level_level_change(level_change: PackedScene) -> void:
 	
 	
 func start_dialogue(dialogue):
-	print(DialogueDB.Dialogue_active)
 	if DialogueDB.Dialogue_active:
+		print("start_dialogue Skipping")
 		pass
 	else:
+		DialogueDB.Dialogue_active = true
 		ui.start_dialogue(dialogue)
-		get_tree().paused = true
-		DialogueDB.Dialogue_active = false
+
 
 func on_talked_to_scientist(conversation):
-	print("talking")
 	start_dialogue(conversation)
 	

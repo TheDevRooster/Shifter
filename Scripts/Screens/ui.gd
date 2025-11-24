@@ -14,9 +14,8 @@ func _process(_delta: float) -> void:
 
 
 func start_dialogue(dialogue):
-	DialogueDB.Dialogue_active = true
+	print("starting Dialogue from UI")
 	dialogue_box.text.text = dialogue
-	if !dialogue_box.visible:
-		dialogue_box.show()
-	else:
-		pass
+	dialogue_box.show()
+	get_tree().paused = true
+	
