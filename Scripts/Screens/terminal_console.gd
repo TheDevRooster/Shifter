@@ -14,7 +14,6 @@ func _process(_delta: float) -> void:
 	if visible and Input.is_action_just_pressed("player_interact"):
 		close()
 
-		
 func open():
 	just_opened = true
 	self.show()

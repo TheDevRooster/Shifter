@@ -129,6 +129,6 @@ player_interactable = false
 position = Vector2(107.84845, 122.134)
 scale = Vector2(0.10299483, 0.101496585)
 
-[connection signal="scientist_interacted_with" from="Scientist/Interactable_Zone" to="." method="_on_interactable_zone_scientist_interacted_with"]
+[connection signal="scientist_interacted_with" from="Scientist/ScientistInteractionZone" to="." method="_on_interactable_zone_scientist_interacted_with"]
 
 [editable path="Scientist"]

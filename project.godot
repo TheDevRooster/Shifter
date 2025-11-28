@@ -24,6 +24,10 @@ DialogueDB="*res://Scripts/Systems/dialogue_db.gd"
 
 window/stretch/mode="viewport"
 
+[global_group]
+
+Gameplay="Gameplay Node"
+
 [input]
 
 player_move_left={

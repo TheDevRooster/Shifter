@@ -5,11 +5,12 @@ var door2
 @onready var scientist: CharacterBody2D = $Scientist
 @export var door_1_position: Vector2i
 @export var door_2_position: Vector2i
-signal talked_to_scientist(dialogue: Dictionary)
+signal talked_to_scientist(dialogue)
 		
 		
 func _ready():
 	super()
+	connect_consoles()
 	if WorldData.talked_to_doctor_1:
 		open_door(door_1_position,door_1)
 	if WorldData.level_one_done:
@@ -25,25 +26,34 @@ func _process(_delta: float) -> void:
 
 
 
-func _on_interactable_zone_scientist_interacted_with() -> void:
-	print("interacting with scientist")
-	#print('console unlocked: ', WorldData.console_unlocked)
-	#print('Talked to doctor 1 ', WorldData.talked_to_doctor_1)
-	if !WorldData.console_unlocked:
-		print("instance 1")
-		WorldData.console_unlocked = true
-		print(DialogueDB.Scientist.Intro.text)
-		talked_to_scientist.emit(DialogueDB.Scientist.Intro.text)
-	elif !WorldData.talked_to_doctor_1:
-		WorldData.talked_to_doctor_1 = true
-		open_door(door_1_position, door_1)
+func _on_interactable_zone_scientist_interacted_with(script) -> void:
+	print('Console Unlocked:', WorldData.console_unlocked)
+	print('Talked To Doctor 1: ', WorldData.talked_to_doctor_1)
+	if DialogueDB.just_opened:
+		DialogueDB.just_opened = false
+		return
 	else:
-		print("instance final")
-		talked_to_scientist.emit(DialogueDB.Scientist.Intro2.text)
+		if !WorldData.console_unlocked:
+			print("instance 1")
+			WorldData.console_unlocked = true
+			talked_to_scientist.emit(DialogueDB.Dialogue.Scientist.Intro)
+			scientist.current_dialogue = 'Intro2'
+		elif WorldData.console_unlocked and !WorldData.talked_to_doctor_1:
+			print('instance 2')
+			WorldData.talked_to_doctor_1 = true
+			open_door(door_1_position, door_1)
+			talked_to_scientist.emit(DialogueDB.Dialogue.Scientist.Intro3)
+		else:
+			talked_to_scientist.emit(DialogueDB.Dialogue.Scientist.Intro4)
 		
-		
+	
 func open_door(door_position: Vector2i, door: doorway):
-	#print("opening door")
 	set_cell(door_position, 0, Vector2i(7,0))
 	door.monitoring = true
+		
+func connect_consoles():
+	var gameplay = get_node('/root/Gameplay')
+	for item in get_tree().get_nodes_in_group("Consoles"):
+		print(item, ' is connecting')
+		item.connect("console_interacted", gameplay.console_interacted)
 		

@@ -82,6 +82,7 @@ func _on_interact_zone_area_entered(area: Area2D) -> void:
 				can_interact = true
 				interact_icon.show()
 				current_interaction = area
+				#print(current_interaction)
 	else:
 		pass
 

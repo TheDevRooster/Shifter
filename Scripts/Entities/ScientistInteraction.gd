@@ -1,3 +1,4 @@
+class_name ScientistInteractionZone
 extends InteractZone
 
 signal scientist_interacted_with(conversation)
@@ -7,4 +8,6 @@ func _ready() -> void:
 	pass	
 
 func interaction():
-	scientist_interacted_with.emit()
+	print("emmiting scientist interacted with Signal")
+	scientist_interacted_with.emit(get_parent().current_dialogue)
+	

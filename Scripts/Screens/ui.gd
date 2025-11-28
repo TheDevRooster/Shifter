@@ -8,15 +8,11 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	#print("running")
 	pass
 
 
 
-
 func start_dialogue(dialogue):
-	DialogueDB.Dialogue_active = true
-	dialogue_box.text.text = dialogue
-	if !dialogue_box.visible:
-		dialogue_box.show()
-	else:
-		pass
+	dialogue_box.start_dialogue(dialogue)
+	get_tree().paused = true
