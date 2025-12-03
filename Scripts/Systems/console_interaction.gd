@@ -11,6 +11,7 @@ var console_menu_scene = load("res://Scenes/Screens/terminal_console.tscn")
 
 func interaction() -> void:
 	if WorldData.console_unlocked:
+		WorldData.used_console = true
 		console_interacted.emit("terminal_console")
 		print("Terminal Interacted")
 	else:

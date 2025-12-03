@@ -8,32 +8,36 @@ var more_conversation = false
 var current_speaker
 
 func _input(event: InputEvent) -> void:
+	print(get_tree().paused)
+	#print('Next text is: ',current_conversation.next_text)
 	if event.is_action_pressed("player_interact"):
-		if get_tree().paused:
+		print("Player interacting")
+		if DialogueDB.Dialogue_active:
+			print(current_conversation.next_text)
 			if current_conversation.next_text:
 				progress_conversation(current_conversation.next_text)
 			else:
 				close_dialogue()
 		else:
-			pass
+			return
 		
 
 func start_dialogue(dialogue):
+	print("Starting Dialogue test from dialogue node")
+	print(dialogue)
 	DialogueDB.Dialogue_active = true
 	DialogueDB.just_opened = true
+	get_tree().paused = true
 	current_conversation = dialogue
 	current_speaker = dialogue.speaker
-	print("Starting Dialogue test from dialogue node")
 	self.show()
 	text.text = dialogue.text
-	get_tree().paused = true		
 
 
 func close_dialogue():
 	DialogueDB.Dialogue_active = false
 	print("closing Dialogue from dialogue Node")
 	#if DialogueDB.Dialogue_active:
-
 	self.hide()
 	get_tree().paused = false
 

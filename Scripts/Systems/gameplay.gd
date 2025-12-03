@@ -7,7 +7,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass  	
+	pass
 
 
 func _on_player_interacted(target: Variant) -> void:
@@ -16,6 +16,9 @@ func _on_player_interacted(target: Variant) -> void:
 			
 			
 func console_interacted(screen_id):
+	if ui.terminal_console.just_opened:
+		ui.terminal_console.just_opened = false
+		return
 	match screen_id:
 		"terminal_console":
 			if !ui.terminal_console.visible:

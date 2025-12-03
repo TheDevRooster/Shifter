@@ -101,8 +101,8 @@ attack_damage = 5
 attack_cooldown = 0.0
 attack_position = Vector2(0, 0)
 attack_damage2 = 5
-attack_duration2 = 2.0
-attack_cooldown2 = 3.0
+attack_duration2 = 1.0
+attack_cooldown2 = 1.2
 attack_position2 = Vector2(0, 0)
 
 [node name="HitboxComponent" parent="Phases/Wolf" index="0"]
@@ -115,6 +115,7 @@ debug_color = Color(0.65551734, 0.5174248, 0, 0.41960785)
 
 [node name="HitboxComponent2" parent="Phases/Wolf" instance=ExtResource("6_dd0ac")]
 scale = Vector2(0.9999999, 0.9999999)
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Phases/Wolf/HitboxComponent2"]
 position = Vector2(14.49982, 0)
@@ -124,9 +125,11 @@ shape = SubResource("ConvexPolygonShape2D_dd0ac")
 attack_damage = 40
 attack_duration = 2.0
 attack_cooldown = 3.0
+attack_position = Vector2(0, 0)
 attack_damage2 = 20
 attack_duration2 = 1.0
 attack_cooldown2 = 2.0
+attack_position2 = Vector2(0, 0)
 
 [node name="HitboxComponent" parent="Phases/Bear" index="0"]
 collision_mask = 2
@@ -167,7 +170,6 @@ autoplay = "default"
 [node name="InteractZone" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractZone"]
-visible = false
 position = Vector2(101.498726, -3.5527137e-15)
 shape = SubResource("CircleShape2D_a3d8c")
 debug_color = Color(0.9992406, 0, 0.13277727, 0.41960785)
@@ -189,6 +191,7 @@ zoom = Vector2(8.41, 8.41)
 [node name="PhaseTimer" type="Timer" parent="."]
 wait_time = 5.0
 
+[connection signal="area_entered" from="Phases/Wolf/HitboxComponent2" to="Phases/Wolf" method="_on_hitbox_component_area_entered"]
 [connection signal="area_entered" from="InteractZone" to="." method="_on_interact_zone_area_entered"]
 [connection signal="area_exited" from="InteractZone" to="." method="_on_interact_zone_area_exited"]
 [connection signal="timeout" from="PhaseTimer" to="." method="_on_phase_timer_timeout"]

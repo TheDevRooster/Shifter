@@ -23,7 +23,11 @@ var Dialogue = {
 			'speaker': 'Scientist',
 			'text': 'Please proceed with the experiment 4x4332. We will proceed with 4x4333 if you do not cooperate.',
 			'next_text': null,
+		},
+		'Middle1': {
+			'speaker': 'Scientist',
+			'text': 'Congratulations on completing the first trial. Plese head down to RNAPC next to the ORANGE console to collect your reward.',
+			'next_text': null
 		}
-	
 }
 }

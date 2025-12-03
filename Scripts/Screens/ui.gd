@@ -15,4 +15,6 @@ func _process(_delta: float) -> void:
 
 func start_dialogue(dialogue):
 	dialogue_box.start_dialogue(dialogue)
-	get_tree().paused = true
+
+func accessed_terminal():
+	terminal_console.open()

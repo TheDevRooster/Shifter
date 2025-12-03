@@ -8,6 +8,6 @@ func _ready() -> void:
 	pass	
 
 func interaction():
-	print("emmiting scientist interacted with Signal")
+	#print("emmiting scientist interacted with Signal")
 	scientist_interacted_with.emit(get_parent().current_dialogue)
 	

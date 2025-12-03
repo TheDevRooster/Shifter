@@ -20,7 +20,7 @@ var current_phase
 
 func _ready() -> void:
 	current_phase = phases.get_child(0)
-	print(current_phase)
+	#print(current_phase)
 	
 	
 func _physics_process(_delta: float) -> void:
@@ -103,8 +103,8 @@ func _on_attack_component_attacked() -> void:
 
 
 func _on_phase_timer_timeout() -> void:
-	print(current_phase)
 	phase_shift()
+	#print(current_phase)
 	
 
 
