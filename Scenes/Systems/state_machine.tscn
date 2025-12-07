@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cxnwmb5t1ia4"]
+
+[ext_resource type="Script" uid="uid://b4arysawvujwa" path="res://Scripts/Systems/state_machine.gd" id="1_kas8c"]
+[ext_resource type="Script" uid="uid://dpacnrja1jvav" path="res://Scripts/Systems/State/Enemy/enemy_idle.gd" id="2_ncr8b"]
+[ext_resource type="Script" uid="uid://bygk04nv1gqru" path="res://Scripts/Systems/State/Enemy/EnemyFollow.gd" id="3_rpvet"]
+
+[node name="StateMachine" type="Node" node_paths=PackedStringArray("player", "current_state")]
+script = ExtResource("1_kas8c")
+player = NodePath("")
+current_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="." node_paths=PackedStringArray("enemy")]
+script = ExtResource("2_ncr8b")
+enemy = NodePath("")
+
+[node name="Following" type="Node" parent="." node_paths=PackedStringArray("enemy")]
+script = ExtResource("3_rpvet")
+enemy = NodePath("")
+
+[node name="Attacking" type="Node" parent="."]

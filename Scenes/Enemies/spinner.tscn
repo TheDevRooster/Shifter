@@ -1,9 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://do6x61k5joj0p"]
+[gd_scene load_steps=15 format=3 uid="uid://do6x61k5joj0p"]
 
 [ext_resource type="PackedScene" uid="uid://cn4ymqb6micuy" path="res://Scenes/Systems/Components/health_component.tscn" id="1_0a0fp"]
 [ext_resource type="Texture2D" uid="uid://ctyywcehhwfwi" path="res://Assets/SpriteSheet/Lab.png" id="1_31pfi"]
 [ext_resource type="Script" uid="uid://lngwpsggdxgm" path="res://Scripts/Entities/spinner.gd" id="1_fllqi"]
 [ext_resource type="PackedScene" uid="uid://cfy28w6k4jbpt" path="res://Scenes/Systems/Components/hitbox_component.tscn" id="2_31pfi"]
+[ext_resource type="PackedScene" uid="uid://cxnwmb5t1ia4" path="res://Scenes/Systems/state_machine.tscn" id="3_rhpjc"]
+[ext_resource type="Script" uid="uid://byext3l7y2klr" path="res://Scripts/Entities/EnemyAttackBox.gd" id="6_hxcon"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fllqi"]
 atlas = ExtResource("1_31pfi")
@@ -49,23 +51,31 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_31pfi"]
 radius = 7.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_rhpjc"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3tb2g"]
+radius = 9.0
+
 [node name="Spinner" type="CharacterBody2D"]
 script = ExtResource("1_fllqi")
+attack_damage = 2
+knockback = 500
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_gfb08")
 animation = &"Idle"
 autoplay = "Idle"
-frame_progress = 0.75163454
+frame_progress = 0.679198
 
-[node name="StateMachine" type="Node2D" parent="."]
+[node name="StateMachine" parent="." instance=ExtResource("3_rhpjc")]
 
-[node name="Idle" type="Node2D" parent="StateMachine"]
+[node name="Idle" parent="StateMachine" index="0" node_paths=PackedStringArray("enemy")]
+enemy = NodePath("../..")
 
-[node name="Following" type="Node2D" parent="StateMachine"]
-
-[node name="Attacking" type="Node2D" parent="StateMachine"]
+[node name="Following" parent="StateMachine" index="1" node_paths=PackedStringArray("enemy")]
+enemy = NodePath("../..")
 
 [node name="HealthComponent" parent="." instance=ExtResource("1_0a0fp")]
 health = 30
@@ -78,8 +88,26 @@ health_component = NodePath("../HealthComponent")
 shape = SubResource("CircleShape2D_31pfi")
 
 [node name="HP" type="Label" parent="."]
-offset_left = -15.0
-offset_top = -31.0
-offset_right = 15.0
-offset_bottom = -8.0
+texture_filter = 1
+offset_left = -4.0
+offset_top = -14.999999
+offset_right = 26.0
+offset_bottom = 8.000001
+scale = Vector2(0.3757005, 0.2095102)
 metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_rhpjc")
+disabled = true
+
+[node name="EnemyAttackBox" type="Area2D" parent="."]
+scale = Vector2(1.0773563, 1.049709)
+collision_mask = 4
+script = ExtResource("6_hxcon")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyAttackBox"]
+shape = SubResource("CircleShape2D_3tb2g")
+
+[connection signal="area_entered" from="EnemyAttackBox" to="EnemyAttackBox" method="_on_area_entered"]
+
+[editable path="StateMachine"]

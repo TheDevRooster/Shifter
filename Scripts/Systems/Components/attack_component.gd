@@ -1,4 +1,4 @@
-class_name AttackComponent
+class_name PlayerAttackComponent
 extends Node
 
 @onready var cooldown: Timer = $Cooldown

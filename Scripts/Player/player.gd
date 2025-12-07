@@ -1,6 +1,8 @@
 class_name Player
 extends CharacterBody2D
 
+@onready var player_hitbox: HitboxComponent = $HitboxComponent
+@onready var player_collision_box: CollisionShape2D = $CollisionShape2D
 
 @onready var phases: Node = $Phases
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -8,7 +10,7 @@ extends CharacterBody2D
 @onready var interact_icon: Sprite2D = $InteractNotification
 @onready var animator: AnimatedSprite2D = $AnimationSprite
 @export var SPEED :float = 300.0
-
+var just_hit: bool
 
 signal interacted(target)
 
@@ -29,6 +31,8 @@ func _physics_process(_delta: float) -> void:
 
 	var direction := Input.get_vector("player_move_left", "player_move_right", "player_move_up", "player_move_down")
 	if direction:
+		if just_hit:
+			return
 		facing_direction = direction.normalized()
 		velocity = direction * SPEED
 	else:
@@ -68,6 +72,13 @@ func _physics_process(_delta: float) -> void:
 	#### End of player Inputs ####
 
 
+func invincibilty_frames(duration: float):
+	player_hitbox.monitoring = false
+	player_collision_box.disabled = true
+	await get_tree().create_timer(duration).timeout
+	player_hitbox.monitoring = true
+	player_collision_box.disabled = false
+	just_hit = false
 func phase_shift():
 	print("shifting")
 	phases.move_child(phases.get_child(0),phases.get_child_count() - 1)
@@ -108,54 +119,5 @@ func _on_phase_timer_timeout() -> void:
 	
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-func make_space():
-	pass
+func _on_hitbox_component_entity_hit() -> void:
+	just_hit = true
