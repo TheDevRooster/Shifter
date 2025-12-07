@@ -1,27 +1,57 @@
-[gd_scene load_steps=2 format=3 uid="uid://dm53uf64su6ue"]
+[gd_scene load_steps=4 format=3 uid="uid://dm53uf64su6ue"]
 
 [ext_resource type="Script" uid="uid://ck4bmipu18egi" path="res://Scripts/Screens/terminal_console.gd" id="1_fj2rq"]
+
+[sub_resource type="Theme" id="Theme_fj2rq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fj2rq"]
+bg_color = Color(0.8518581, 0.5040255, 0.11026312, 1)
 
 [node name="TerminalConsole" type="Control"]
 process_mode = 3
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_fj2rq")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 0
-offset_left = 292.0
-offset_top = 166.0
-offset_right = 784.0
-offset_bottom = 497.0
-color = Color(0, 0.33333334, 0, 1)
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_left = 230.0
-offset_top = 158.0
-offset_right = 855.0
-offset_bottom = 487.0
-text = "CONFIGURE PILLS "
+[node name="Panel" type="Panel" parent="CenterContainer"]
+custom_minimum_size = Vector2(700, 300)
+layout_mode = 2
+theme = SubResource("Theme_fj2rq")
+theme_override_styles/panel = SubResource("StyleBoxFlat_fj2rq")
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "test"
 horizontal_alignment = 1
-vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1

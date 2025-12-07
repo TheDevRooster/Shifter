@@ -1,4 +1,4 @@
-class_name AttackComponent
+class_name PlayerAttackComponent
 extends Node
 
 @onready var cooldown: Timer = $Cooldown
@@ -59,6 +59,7 @@ func _on_cooldown_timeout() -> void:
 	on_cooldown = false
 
 func _on_hitbox_component_area_entered(area: Area2D) -> void:
+	print("hit")
 	if area is HitboxComponent and !already_hit:
 		print("hitbox")
 		already_hit = true

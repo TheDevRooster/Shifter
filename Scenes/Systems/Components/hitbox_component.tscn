@@ -3,4 +3,5 @@
 [ext_resource type="Script" uid="uid://bifueilo7h8ml" path="res://Scripts/Systems/Components/hitbox_component.gd" id="1_0hb4b"]
 
 [node name="HitboxComponent" type="Area2D"]
+editor_description = "THIS IS A TEST ON HOW TO DO STUFF"
 script = ExtResource("1_0hb4b")

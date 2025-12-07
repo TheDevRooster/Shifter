@@ -25,8 +25,8 @@ script = ExtResource("1_s24rp")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_s24rp")
 
-[node name="Interactable_Zone" parent="." instance=ExtResource("3_a3rue")]
+[node name="ScientistInteractionZone" parent="." instance=ExtResource("3_a3rue")]
 script = ExtResource("4_byrv3")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable_Zone"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScientistInteractionZone"]
 shape = SubResource("CircleShape2D_a3rue")

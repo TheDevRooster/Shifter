@@ -29,7 +29,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dd0ac"]
-size = Vector2(115.99855, 107.500015)
+size = Vector2(115.998566, 107.50002)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gk6dx"]
 atlas = ExtResource("5_dd0ac")
@@ -89,7 +89,7 @@ radius = 41.01219
 radius = 40.312504
 height = 80.62501
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 scale = Vector2(0.06896638, 0.0744186)
 script = ExtResource("1_a3d8c")
 SPEED = 40.0
@@ -101,8 +101,8 @@ attack_damage = 5
 attack_cooldown = 0.0
 attack_position = Vector2(0, 0)
 attack_damage2 = 5
-attack_duration2 = 2.0
-attack_cooldown2 = 3.0
+attack_duration2 = 1.0
+attack_cooldown2 = 1.2
 attack_position2 = Vector2(0, 0)
 
 [node name="HitboxComponent" parent="Phases/Wolf" index="0"]
@@ -115,6 +115,7 @@ debug_color = Color(0.65551734, 0.5174248, 0, 0.41960785)
 
 [node name="HitboxComponent2" parent="Phases/Wolf" instance=ExtResource("6_dd0ac")]
 scale = Vector2(0.9999999, 0.9999999)
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Phases/Wolf/HitboxComponent2"]
 position = Vector2(14.49982, 0)
@@ -124,9 +125,11 @@ shape = SubResource("ConvexPolygonShape2D_dd0ac")
 attack_damage = 40
 attack_duration = 2.0
 attack_cooldown = 3.0
+attack_position = Vector2(0, 0)
 attack_damage2 = 20
 attack_duration2 = 1.0
 attack_cooldown2 = 2.0
+attack_position2 = Vector2(0, 0)
 
 [node name="HitboxComponent" parent="Phases/Bear" index="0"]
 collision_mask = 2
@@ -150,11 +153,12 @@ libraries = {
 health = 20
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_dd0ac")]
-scale = Vector2(0.99999994, 0.99999994)
+scale = Vector2(0.9481825, 1.0302303)
+collision_layer = 4
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
-position = Vector2(-3.4570257e-06, -4.805625e-06)
+position = Vector2(4.172368e-06, -8.620322e-06)
 scale = Vector2(0.9999999, 0.9999999)
 shape = SubResource("RectangleShape2D_dd0ac")
 debug_color = Color(0.43926212, 0.5994434, 0, 0.41960785)
@@ -167,7 +171,6 @@ autoplay = "default"
 [node name="InteractZone" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractZone"]
-visible = false
 position = Vector2(101.498726, -3.5527137e-15)
 shape = SubResource("CircleShape2D_a3d8c")
 debug_color = Color(0.9992406, 0, 0.13277727, 0.41960785)
@@ -189,6 +192,8 @@ zoom = Vector2(8.41, 8.41)
 [node name="PhaseTimer" type="Timer" parent="."]
 wait_time = 5.0
 
+[connection signal="area_entered" from="Phases/Wolf/HitboxComponent2" to="Phases/Wolf" method="_on_hitbox_component_area_entered"]
+[connection signal="entity_hit" from="HitboxComponent" to="." method="_on_hitbox_component_entity_hit"]
 [connection signal="area_entered" from="InteractZone" to="." method="_on_interact_zone_area_entered"]
 [connection signal="area_exited" from="InteractZone" to="." method="_on_interact_zone_area_exited"]
 [connection signal="timeout" from="PhaseTimer" to="." method="_on_phase_timer_timeout"]
