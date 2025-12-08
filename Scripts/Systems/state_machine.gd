@@ -15,6 +15,10 @@ func _ready() -> void:
 		if child is State:
 			states[child.name.to_lower()] = child
 			child.state_changed.connect(on_state_changed)
+			##STATE HAS TO HAVE A PLAYER VARIABLE IDK HOW THE FUCK TO CHECK A VARIABLE
+			if !child.player:
+				child.player = player as Player
+				
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
@@ -25,7 +29,7 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	if current_state:
 		current_state.Physics_Update(delta)
-
+		
 
 
 

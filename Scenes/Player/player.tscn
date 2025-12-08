@@ -1,11 +1,15 @@
-[gd_scene load_steps=22 format=3 uid="uid://ynid5vi3tdfn"]
+[gd_scene load_steps=26 format=3 uid="uid://ynid5vi3tdfn"]
 
 [ext_resource type="Script" uid="uid://u1ndfthdgsyb" path="res://Scripts/Player/player.gd" id="1_a3d8c"]
 [ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="2_xpcdj"]
 [ext_resource type="PackedScene" uid="uid://l03xd8cv6ylj" path="res://Scenes/Systems/Components/attack_component.tscn" id="3_mtuoh"]
 [ext_resource type="PackedScene" uid="uid://cn4ymqb6micuy" path="res://Scenes/Systems/Components/health_component.tscn" id="3_xpcdj"]
 [ext_resource type="Texture2D" uid="uid://ctyywcehhwfwi" path="res://Assets/SpriteSheet/Lab.png" id="5_dd0ac"]
+[ext_resource type="Script" uid="uid://inoyu7mkw1l" path="res://Scripts/Player/States/knockback.gd" id="5_jhyir"]
 [ext_resource type="PackedScene" uid="uid://cfy28w6k4jbpt" path="res://Scenes/Systems/Components/hitbox_component.tscn" id="6_dd0ac"]
+[ext_resource type="Script" uid="uid://b4arysawvujwa" path="res://Scripts/Systems/state_machine.gd" id="7_0u5uq"]
+[ext_resource type="Script" uid="uid://baotwb2x3hxf0" path="res://Scripts/Player/States/playeridle.gd" id="8_jlvik"]
+[ext_resource type="Script" uid="uid://bcdweo6vtos41" path="res://Scripts/Player/States/moving.gd" id="9_gk6dx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dd0ac"]
 radius = 144.99818
@@ -94,6 +98,28 @@ scale = Vector2(0.06896638, 0.0744186)
 script = ExtResource("1_a3d8c")
 SPEED = 40.0
 
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("player", "current_state")]
+script = ExtResource("7_0u5uq")
+player = NodePath("..")
+current_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://b4arysawvujwa"
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("8_jlvik")
+
+[node name="Moving" type="Node" parent="StateMachine"]
+script = ExtResource("9_gk6dx")
+
+[node name="Knockback" type="Node" parent="StateMachine" node_paths=PackedStringArray("knockback_timer")]
+script = ExtResource("5_jhyir")
+knockback_timer = NodePath("KnockbackTimer")
+
+[node name="KnockbackTimer" type="Timer" parent="StateMachine/Knockback"]
+wait_time = 0.1
+one_shot = true
+
+[node name="Attack" type="Node" parent="StateMachine"]
+
 [node name="Phases" type="Node2D" parent="."]
 
 [node name="Wolf" parent="Phases" instance=ExtResource("3_mtuoh")]
@@ -150,7 +176,7 @@ libraries = {
 }
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_xpcdj")]
-health = 20
+health = 300
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_dd0ac")]
 scale = Vector2(0.9481825, 1.0302303)
@@ -192,6 +218,7 @@ zoom = Vector2(8.41, 8.41)
 [node name="PhaseTimer" type="Timer" parent="."]
 wait_time = 5.0
 
+[connection signal="on_hit" from="." to="." method="_on_on_hit"]
 [connection signal="area_entered" from="Phases/Wolf/HitboxComponent2" to="Phases/Wolf" method="_on_hitbox_component_area_entered"]
 [connection signal="entity_hit" from="HitboxComponent" to="." method="_on_hitbox_component_entity_hit"]
 [connection signal="area_entered" from="InteractZone" to="." method="_on_interact_zone_area_entered"]

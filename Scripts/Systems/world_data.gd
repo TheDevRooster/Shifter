@@ -1,5 +1,9 @@
 extends Node
 
+#### TEST ZONE ####
+
+var PLAYER_INVINCIBILTY_FRAMES = 1.0
+
 
 #### Dialogue Variables ####
 

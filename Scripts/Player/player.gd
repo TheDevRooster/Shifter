@@ -1,19 +1,22 @@
 class_name Player
 extends CharacterBody2D
 
+
+signal on_hit()
+
+
 @onready var player_hitbox: HitboxComponent = $HitboxComponent
 @onready var player_collision_box: CollisionShape2D = $CollisionShape2D
-
+@onready var state_machine: StateMachine = $StateMachine
 @onready var phases: Node = $Phases
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var interact_area: Area2D = $InteractZone
 @onready var interact_icon: Sprite2D = $InteractNotification
 @onready var animator: AnimatedSprite2D = $AnimationSprite
 @export var SPEED :float = 300.0
-var just_hit: bool
 
+var just_hit = false
 signal interacted(target)
-
 
 var can_interact = false
 var current_interaction
@@ -24,44 +27,13 @@ func _ready() -> void:
 	current_phase = phases.get_child(0)
 	#print(current_phase)
 	
+
+func _process(delta: float) -> void:
+	print(state_machine.current_state)
 	
 func _physics_process(_delta: float) -> void:
-
-	#### Start of player Movement ####
-
-	var direction := Input.get_vector("player_move_left", "player_move_right", "player_move_up", "player_move_down")
-	if direction:
-		if just_hit:
-			return
-		facing_direction = direction.normalized()
-		velocity = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.y = move_toward(velocity.y, 0, SPEED)
-
-	move_and_slide()
-
-	#### End of player Movement ####
-
-
-	#### Handles Movement of player interaction Box ####
-
-	if direction.x > 0:
-		interact_area.rotation_degrees = 0
-	elif direction.x < 0:
-		interact_area.rotation_degrees = 180
-	elif direction.y > 0:
-		interact_area.rotation_degrees = 90
-	elif direction.y < 0:
-		interact_area.rotation_degrees = 270
-
-
-	####End of Movement of player interaction Box
-
-	#### Start of player Inputs ####
-
 	# All player inputs are handled via project input and then written in functions below.
-
+	
 	if Input.is_action_just_pressed("player_ability_1"):
 		current_phase.attack1(facing_direction,current_phase)
 	if Input.is_action_just_pressed("player_ability_2"):
@@ -73,12 +45,14 @@ func _physics_process(_delta: float) -> void:
 
 
 func invincibilty_frames(duration: float):
+	just_hit = true
 	player_hitbox.monitoring = false
 	player_collision_box.disabled = true
 	await get_tree().create_timer(duration).timeout
 	player_hitbox.monitoring = true
 	player_collision_box.disabled = false
-	just_hit = false
+	
+	
 func phase_shift():
 	print("shifting")
 	phases.move_child(phases.get_child(0),phases.get_child_count() - 1)
@@ -118,6 +92,12 @@ func _on_phase_timer_timeout() -> void:
 	#print(current_phase)
 	
 
-
 func _on_hitbox_component_entity_hit() -> void:
 	just_hit = true
+
+
+func _on_on_hit() -> void:
+	if just_hit:
+		return
+	state_machine.on_state_changed(state_machine.current_state, 'knockback')
+	
