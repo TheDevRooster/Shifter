@@ -1,6 +1,6 @@
 extends State
 
-var player: CharacterBody2D
+
 
 func Enter():
 	#Play Animation

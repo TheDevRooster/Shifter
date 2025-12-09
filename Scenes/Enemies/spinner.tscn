@@ -1,11 +1,25 @@
-[gd_scene load_steps=15 format=3 uid="uid://do6x61k5joj0p"]
+[gd_scene load_steps=28 format=3 uid="uid://do6x61k5joj0p"]
 
 [ext_resource type="PackedScene" uid="uid://cn4ymqb6micuy" path="res://Scenes/Systems/Components/health_component.tscn" id="1_0a0fp"]
 [ext_resource type="Texture2D" uid="uid://ctyywcehhwfwi" path="res://Assets/SpriteSheet/Lab.png" id="1_31pfi"]
 [ext_resource type="Script" uid="uid://lngwpsggdxgm" path="res://Scripts/Entities/spinner.gd" id="1_fllqi"]
 [ext_resource type="PackedScene" uid="uid://cfy28w6k4jbpt" path="res://Scenes/Systems/Components/hitbox_component.tscn" id="2_31pfi"]
 [ext_resource type="PackedScene" uid="uid://cxnwmb5t1ia4" path="res://Scenes/Systems/state_machine.tscn" id="3_rhpjc"]
+[ext_resource type="Script" uid="uid://dpacnrja1jvav" path="res://Scripts/Systems/State/Enemy/enemy_idle.gd" id="4_gfb08"]
+[ext_resource type="Script" uid="uid://bygk04nv1gqru" path="res://Scripts/Systems/State/Enemy/EnemyFollow.gd" id="5_er676"]
+[ext_resource type="Script" uid="uid://bwi1iqduwxkxt" path="res://Scripts/Systems/State/Enemy/Spinner_charging_attack.gd" id="6_er676"]
 [ext_resource type="Script" uid="uid://byext3l7y2klr" path="res://Scripts/Entities/EnemyAttackBox.gd" id="6_hxcon"]
+[ext_resource type="Script" uid="uid://ckm4qy0fh5iye" path="res://Scripts/Systems/State/Enemy/spinner_attack.gd" id="7_8ux88"]
+[ext_resource type="Script" uid="uid://watktx5g1avr" path="res://Scripts/Systems/State/Enemy/spinner_recharging.gd" id="8_ep3iw"]
+[ext_resource type="Script" uid="uid://bhi86cacymek0" path="res://Scripts/Systems/State/Enemy/death.gd" id="9_2ejj4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ep3iw"]
+atlas = ExtResource("1_31pfi")
+region = Rect2(112, 208, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ejj4"]
+atlas = ExtResource("1_31pfi")
+region = Rect2(128, 208, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fllqi"]
 atlas = ExtResource("1_31pfi")
@@ -15,6 +29,18 @@ region = Rect2(80, 208, 16, 16)
 atlas = ExtResource("1_31pfi")
 region = Rect2(96, 208, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_fhjh7"]
+atlas = ExtResource("1_31pfi")
+region = Rect2(80, 240, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x5gib"]
+atlas = ExtResource("1_31pfi")
+region = Rect2(96, 240, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_htdr4"]
+atlas = ExtResource("1_31pfi")
+region = Rect2(128, 240, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_hxcon"]
 atlas = ExtResource("1_31pfi")
 region = Rect2(80, 192, 16, 16)
@@ -23,8 +49,27 @@ region = Rect2(80, 192, 16, 16)
 atlas = ExtResource("1_31pfi")
 region = Rect2(96, 192, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_k5q2w"]
+atlas = ExtResource("1_31pfi")
+region = Rect2(112, 192, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p845f"]
+atlas = ExtResource("1_31pfi")
+region = Rect2(128, 192, 16, 16)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_gfb08"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ep3iw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ejj4")
+}],
+"loop": true,
+"name": &"ChargingAttack",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fllqi")
@@ -38,6 +83,20 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_fhjh7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x5gib")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_htdr4")
+}],
+"loop": false,
+"name": &"Death",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_hxcon")
 }, {
 "duration": 1.0,
@@ -46,6 +105,17 @@ animations = [{
 "loop": true,
 "name": &"Idle",
 "speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k5q2w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p845f")
+}],
+"loop": true,
+"name": &"Recharging",
+"speed": 5.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_31pfi"]
@@ -55,9 +125,11 @@ radius = 7.0
 radius = 7.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3tb2g"]
-radius = 9.0
+radius = 6.497386
 
 [node name="Spinner" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_fllqi")
 attack_damage = 2
 knockback = 200
@@ -65,20 +137,51 @@ knockback = 200
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_gfb08")
-animation = &"Idle"
+animation = &"Death"
 autoplay = "Idle"
-frame_progress = 0.679198
 
-[node name="StateMachine" parent="." instance=ExtResource("3_rhpjc")]
+[node name="StateMachine" parent="." node_paths=PackedStringArray("player", "current_state") instance=ExtResource("3_rhpjc")]
+player = NodePath("..")
+current_state = NodePath("Idle")
 
-[node name="Idle" parent="StateMachine" index="0" node_paths=PackedStringArray("enemy")]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("4_gfb08")
 enemy = NodePath("../..")
 
-[node name="Following" parent="StateMachine" index="1" node_paths=PackedStringArray("enemy")]
+[node name="Following" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("5_er676")
+enemy = NodePath("../..")
+attack_range = 20
+
+[node name="ChargingAttack" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "charge_timer")]
+script = ExtResource("6_er676")
+enemy = NodePath("../..")
+charge_timer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="StateMachine/ChargingAttack"]
+one_shot = true
+
+[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("7_8ux88")
+dash_speed = 50
+enemy = NodePath("../..")
+
+[node name="DashTimer" type="Timer" parent="StateMachine/Attack"]
+wait_time = 0.7
+one_shot = true
+
+[node name="Recharging" type="Node" parent="StateMachine" node_paths=PackedStringArray("recharge_timer")]
+script = ExtResource("8_ep3iw")
+recharge_timer = NodePath("RechargeTimer")
+
+[node name="RechargeTimer" type="Timer" parent="StateMachine/Recharging"]
+
+[node name="Death" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("9_2ejj4")
 enemy = NodePath("../..")
 
 [node name="HealthComponent" parent="." instance=ExtResource("1_0a0fp")]
-health = 30
+health = 5
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("2_31pfi")]
 collision_layer = 2
@@ -87,7 +190,7 @@ health_component = NodePath("../HealthComponent")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 shape = SubResource("CircleShape2D_31pfi")
 
-[node name="HP" type="Label" parent="."]
+[node name="State" type="Label" parent="."]
 texture_filter = 1
 offset_left = -4.0
 offset_top = -14.999999
@@ -107,7 +210,11 @@ script = ExtResource("6_hxcon")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyAttackBox"]
 shape = SubResource("CircleShape2D_3tb2g")
+disabled = true
 
+[connection signal="timeout" from="StateMachine/ChargingAttack/Timer" to="StateMachine/ChargingAttack" method="_on_timer_timeout"]
+[connection signal="timeout" from="StateMachine/Attack/DashTimer" to="StateMachine/Attack" method="_on_dash_timer_timeout"]
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
 [connection signal="area_entered" from="EnemyAttackBox" to="EnemyAttackBox" method="_on_area_entered"]
 
 [editable path="StateMachine"]

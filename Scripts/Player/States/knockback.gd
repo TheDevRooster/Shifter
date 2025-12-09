@@ -1,6 +1,6 @@
 extends State
 
-var player
+
 @export var knockback_timer: Timer
 
 

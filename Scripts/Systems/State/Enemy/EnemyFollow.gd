@@ -5,8 +5,8 @@ class_name EnemyFollow
 
 @export var enemy: CharacterBody2D
 @export var move_speed:= 20
+@export var attack_range: int
 
-var player: CharacterBody2D
 
 func Enter():
 	print(player)
@@ -22,3 +22,9 @@ func Physics_Update(_delta: float):
 		enemy.velocity = Vector2()
 	if direction.length() > 50:
 		state_changed.emit(self, "Idle")
+
+func Update(_delta: float):
+	print((player.global_position - enemy.global_position).length())
+	if (player.global_position - enemy.global_position).length() < attack_range:
+		state_changed.emit(self,"chargingattack")
+		print("starting attack")

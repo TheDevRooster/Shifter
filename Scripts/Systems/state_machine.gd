@@ -15,10 +15,11 @@ func _ready() -> void:
 		if child is State:
 			states[child.name.to_lower()] = child
 			child.state_changed.connect(on_state_changed)
+			#child.animation_change.connect(get_parent().on_animation_change)
 			##STATE HAS TO HAVE A PLAYER VARIABLE IDK HOW THE FUCK TO CHECK A VARIABLE
 			if !child.player:
 				child.player = player as Player
-				
+	#print(states)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 

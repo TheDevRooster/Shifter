@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://ynid5vi3tdfn"]
+[gd_scene load_steps=27 format=3 uid="uid://ynid5vi3tdfn"]
 
 [ext_resource type="Script" uid="uid://u1ndfthdgsyb" path="res://Scripts/Player/player.gd" id="1_a3d8c"]
 [ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="2_xpcdj"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cn4ymqb6micuy" path="res://Scenes/Systems/Components/health_component.tscn" id="3_xpcdj"]
 [ext_resource type="Texture2D" uid="uid://ctyywcehhwfwi" path="res://Assets/SpriteSheet/Lab.png" id="5_dd0ac"]
 [ext_resource type="Script" uid="uid://inoyu7mkw1l" path="res://Scripts/Player/States/knockback.gd" id="5_jhyir"]
+[ext_resource type="Script" uid="uid://2kgap464enm4" path="res://Scripts/Player/States/PlayerAttack.gd" id="6_74mp2"]
 [ext_resource type="PackedScene" uid="uid://cfy28w6k4jbpt" path="res://Scenes/Systems/Components/hitbox_component.tscn" id="6_dd0ac"]
 [ext_resource type="Script" uid="uid://b4arysawvujwa" path="res://Scripts/Systems/state_machine.gd" id="7_0u5uq"]
 [ext_resource type="Script" uid="uid://baotwb2x3hxf0" path="res://Scripts/Player/States/playeridle.gd" id="8_jlvik"]
@@ -119,6 +120,7 @@ wait_time = 0.1
 one_shot = true
 
 [node name="Attack" type="Node" parent="StateMachine"]
+script = ExtResource("6_74mp2")
 
 [node name="Phases" type="Node2D" parent="."]
 

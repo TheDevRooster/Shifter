@@ -100,4 +100,3 @@ func _on_on_hit() -> void:
 	if just_hit:
 		return
 	state_machine.on_state_changed(state_machine.current_state, 'knockback')
-	
