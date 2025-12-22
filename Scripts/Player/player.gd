@@ -28,8 +28,7 @@ func _ready() -> void:
 	#print(current_phase)
 	
 
-func _process(delta: float) -> void:
-	print(state_machine.current_state)
+
 	
 func _physics_process(_delta: float) -> void:
 	# All player inputs are handled via project input and then written in functions below.

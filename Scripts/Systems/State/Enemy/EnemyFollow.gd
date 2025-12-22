@@ -24,7 +24,6 @@ func Physics_Update(_delta: float):
 		state_changed.emit(self, "Idle")
 
 func Update(_delta: float):
-	print((player.global_position - enemy.global_position).length())
 	if (player.global_position - enemy.global_position).length() < attack_range:
 		state_changed.emit(self,"chargingattack")
 		print("starting attack")

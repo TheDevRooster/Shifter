@@ -15,8 +15,7 @@ func Enter():
 	
 
 
-func Update(_delta: float):
-	print("Charging Attack")
+
 
 
 

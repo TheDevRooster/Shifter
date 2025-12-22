@@ -137,7 +137,7 @@ knockback = 200
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_gfb08")
-animation = &"Death"
+animation = &"Recharging"
 autoplay = "Idle"
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("player", "current_state") instance=ExtResource("3_rhpjc")]
@@ -214,6 +214,7 @@ disabled = true
 
 [connection signal="timeout" from="StateMachine/ChargingAttack/Timer" to="StateMachine/ChargingAttack" method="_on_timer_timeout"]
 [connection signal="timeout" from="StateMachine/Attack/DashTimer" to="StateMachine/Attack" method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="StateMachine/Recharging/RechargeTimer" to="StateMachine/Recharging" method="_on_recharge_timer_timeout"]
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
 [connection signal="area_entered" from="EnemyAttackBox" to="EnemyAttackBox" method="_on_area_entered"]
 

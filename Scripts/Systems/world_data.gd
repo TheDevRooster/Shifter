@@ -21,5 +21,5 @@ var killed_doctor = false
 
 #Starts the Phasing loop
 var medicine_taken = false
-var used_console = false
+var used_console = true
 var rat_mode_unlocked = false

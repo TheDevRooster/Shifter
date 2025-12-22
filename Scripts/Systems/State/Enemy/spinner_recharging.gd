@@ -7,8 +7,13 @@ extends State
 func Enter():
 	animated_sprite_2d.play("Recharging")
 	recharge_timer.start()
-	state_changed.emit(self, 'following')
+	
 	
 
 func Exit():
 	recharge_timer.stop()
+	
+
+
+func _on_recharge_timer_timeout() -> void:
+	state_changed.emit(self, 'idle')
