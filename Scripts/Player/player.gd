@@ -43,15 +43,7 @@ func _physics_process(_delta: float) -> void:
 	#### End of player Inputs ####
 
 
-func invincibilty_frames(duration: float):
-	just_hit = true
-	player_hitbox.monitoring = false
-	player_collision_box.disabled = true
-	await get_tree().create_timer(duration).timeout
-	player_hitbox.monitoring = true
-	player_collision_box.disabled = false
-	
-	
+
 func phase_shift():
 	print("shifting")
 	phases.move_child(phases.get_child(0),phases.get_child_count() - 1)
