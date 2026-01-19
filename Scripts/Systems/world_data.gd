@@ -1,5 +1,9 @@
 extends Node
 
+#### TEST ZONE ####
+
+var PLAYER_INVINCIBILTY_FRAMES = 1.0
+
 
 #### Dialogue Variables ####
 
@@ -17,5 +21,5 @@ var killed_doctor = false
 
 #Starts the Phasing loop
 var medicine_taken = false
-var used_console = false
+var used_console = true
 var rat_mode_unlocked = false

@@ -1,23 +1,16 @@
-[gd_scene load_steps=22 format=3 uid="uid://ynid5vi3tdfn"]
+[gd_scene load_steps=23 format=3 uid="uid://ynid5vi3tdfn"]
 
 [ext_resource type="Script" uid="uid://u1ndfthdgsyb" path="res://Scripts/Player/player.gd" id="1_a3d8c"]
 [ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="2_xpcdj"]
-[ext_resource type="PackedScene" uid="uid://l03xd8cv6ylj" path="res://Scenes/Systems/Components/attack_component.tscn" id="3_mtuoh"]
 [ext_resource type="PackedScene" uid="uid://cn4ymqb6micuy" path="res://Scenes/Systems/Components/health_component.tscn" id="3_xpcdj"]
 [ext_resource type="Texture2D" uid="uid://ctyywcehhwfwi" path="res://Assets/SpriteSheet/Lab.png" id="5_dd0ac"]
+[ext_resource type="Script" uid="uid://inoyu7mkw1l" path="res://Scripts/Player/States/knockback.gd" id="5_jhyir"]
+[ext_resource type="Script" uid="uid://2kgap464enm4" path="res://Scripts/Player/States/PlayerAttack.gd" id="6_74mp2"]
 [ext_resource type="PackedScene" uid="uid://cfy28w6k4jbpt" path="res://Scenes/Systems/Components/hitbox_component.tscn" id="6_dd0ac"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_dd0ac"]
-radius = 144.99818
-
-[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_dd0ac"]
-points = PackedVector2Array(57.99928, 0, 275.49658, -40.312508, 275.49658, 40.312508)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_0u5uq"]
-radius = 348.25497
-
-[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_0u5uq"]
-points = PackedVector2Array(173.99783, -134.37503, 217.4973, -67.187515, 217.4973, 67.187515, 173.99783, 161.25003, 0, 0)
+[ext_resource type="Script" uid="uid://b4arysawvujwa" path="res://Scripts/Systems/state_machine.gd" id="7_0u5uq"]
+[ext_resource type="PackedScene" uid="uid://djyvgjoug1xen" path="res://Scenes/Player/Phases/WolfForm.tscn" id="7_74mp2"]
+[ext_resource type="Script" uid="uid://baotwb2x3hxf0" path="res://Scripts/Player/States/playeridle.gd" id="8_jlvik"]
+[ext_resource type="Script" uid="uid://bcdweo6vtos41" path="res://Scripts/Player/States/moving.gd" id="9_gk6dx"]
 
 [sub_resource type="Animation" id="Animation_0u5uq"]
 resource_name = "test"
@@ -93,56 +86,34 @@ height = 80.62501
 scale = Vector2(0.06896638, 0.0744186)
 script = ExtResource("1_a3d8c")
 SPEED = 40.0
+debug = true
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("player", "current_state")]
+script = ExtResource("7_0u5uq")
+player = NodePath("..")
+current_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://b4arysawvujwa"
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("8_jlvik")
+
+[node name="Moving" type="Node" parent="StateMachine"]
+script = ExtResource("9_gk6dx")
+
+[node name="Knockback" type="Node" parent="StateMachine" node_paths=PackedStringArray("knockback_timer")]
+script = ExtResource("5_jhyir")
+knockback_timer = NodePath("KnockbackTimer")
+
+[node name="KnockbackTimer" type="Timer" parent="StateMachine/Knockback"]
+wait_time = 0.1
+one_shot = true
+
+[node name="Attack" type="Node" parent="StateMachine"]
+script = ExtResource("6_74mp2")
 
 [node name="Phases" type="Node2D" parent="."]
 
-[node name="Wolf" parent="Phases" instance=ExtResource("3_mtuoh")]
-attack_damage = 5
-attack_cooldown = 0.0
-attack_position = Vector2(0, 0)
-attack_damage2 = 5
-attack_duration2 = 1.0
-attack_cooldown2 = 1.2
-attack_position2 = Vector2(0, 0)
-
-[node name="HitboxComponent" parent="Phases/Wolf" index="0"]
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Phases/Wolf/HitboxComponent" index="0"]
-z_index = 1
-shape = SubResource("CircleShape2D_dd0ac")
-debug_color = Color(0.65551734, 0.5174248, 0, 0.41960785)
-
-[node name="HitboxComponent2" parent="Phases/Wolf" instance=ExtResource("6_dd0ac")]
-scale = Vector2(0.9999999, 0.9999999)
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Phases/Wolf/HitboxComponent2"]
-position = Vector2(14.49982, 0)
-shape = SubResource("ConvexPolygonShape2D_dd0ac")
-
-[node name="Bear" parent="Phases" instance=ExtResource("3_mtuoh")]
-attack_damage = 40
-attack_duration = 2.0
-attack_cooldown = 3.0
-attack_position = Vector2(0, 0)
-attack_damage2 = 20
-attack_duration2 = 1.0
-attack_cooldown2 = 2.0
-attack_position2 = Vector2(0, 0)
-
-[node name="HitboxComponent" parent="Phases/Bear" index="0"]
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Phases/Bear/HitboxComponent" index="0"]
-shape = SubResource("CircleShape2D_0u5uq")
-
-[node name="HitboxComponent2" parent="Phases/Bear" instance=ExtResource("6_dd0ac")]
-scale = Vector2(0.99999994, 0.99999994)
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Phases/Bear/HitboxComponent2"]
-shape = SubResource("ConvexPolygonShape2D_0u5uq")
+[node name="Wolf" parent="Phases" instance=ExtResource("7_74mp2")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -150,7 +121,7 @@ libraries = {
 }
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_xpcdj")]
-health = 20
+health = 300
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_dd0ac")]
 scale = Vector2(0.9481825, 1.0302303)
@@ -192,11 +163,16 @@ zoom = Vector2(8.41, 8.41)
 [node name="PhaseTimer" type="Timer" parent="."]
 wait_time = 5.0
 
-[connection signal="area_entered" from="Phases/Wolf/HitboxComponent2" to="Phases/Wolf" method="_on_hitbox_component_area_entered"]
+[node name="CurrentState" type="Label" parent="."]
+offset_left = -115.99855
+offset_top = -120.93752
+offset_right = -75.99855
+offset_bottom = -97.93752
+scale = Vector2(5.9283314, 1.6573118)
+
+[connection signal="on_hit" from="." to="." method="_on_on_hit"]
+[connection signal="player_attacked" from="." to="StateMachine" method="_on_player_player_attacked"]
 [connection signal="entity_hit" from="HitboxComponent" to="." method="_on_hitbox_component_entity_hit"]
 [connection signal="area_entered" from="InteractZone" to="." method="_on_interact_zone_area_entered"]
 [connection signal="area_exited" from="InteractZone" to="." method="_on_interact_zone_area_exited"]
 [connection signal="timeout" from="PhaseTimer" to="." method="_on_phase_timer_timeout"]
-
-[editable path="Phases/Wolf"]
-[editable path="Phases/Bear"]

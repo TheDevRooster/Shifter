@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bwym807lk378c"]
+[gd_scene load_steps=8 format=3 uid="uid://bwym807lk378c"]
 
 [ext_resource type="PackedScene" uid="uid://ynid5vi3tdfn" path="res://Scenes/Player/player.tscn" id="1_d652g"]
 [ext_resource type="Script" uid="uid://b2krkb7bol62r" path="res://Scripts/Systems/gameplay.gd" id="1_jsudo"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://danpvs6lxsyq" path="res://Scenes/Systems/dialogue.tscn" id="4_7vu3p"]
 [ext_resource type="PackedScene" uid="uid://dm53uf64su6ue" path="res://Scenes/Screens/terminal_console.tscn" id="4_fi2mf"]
 [ext_resource type="Script" uid="uid://byv7vb6pmy3y" path="res://Scripts/Screens/ui.gd" id="4_hdl41"]
-[ext_resource type="PackedScene" uid="uid://do6x61k5joj0p" path="res://Scenes/Enemies/spinner.tscn" id="8_ge3bp"]
 
 [node name="Gameplay" type="Node2D" groups=["Gameplay"]]
 script = ExtResource("1_jsudo")
@@ -17,6 +16,8 @@ script = ExtResource("4_hdl41")
 
 [node name="TerminalConsole" parent="UI" instance=ExtResource("4_fi2mf")]
 visible = false
+light_mask = 8
+visibility_layer = 8
 
 [node name="Dialogue" parent="UI" instance=ExtResource("4_7vu3p")]
 visible = false
@@ -25,19 +26,10 @@ visible = false
 script = ExtResource("4_1abc5")
 
 [node name="Laboratory" parent="LevelManager" instance=ExtResource("3_jsudo")]
-position = Vector2(-43.999996, -111)
-scale = Vector2(0.99999994, 0.99999994)
 
 [node name="Player" parent="." instance=ExtResource("1_d652g")]
 top_level = true
-position = Vector2(-5.0000005, 40)
-
-[node name="Spinner" parent="." instance=ExtResource("8_ge3bp")]
-position = Vector2(18, -27)
+position = Vector2(32.000004, 61.000023)
 
 [connection signal="level_change" from="LevelManager" to="." method="_on_level_level_change"]
-[connection signal="talked_to_scientist" from="LevelManager/Laboratory" to="." method="on_talked_to_scientist"]
 [connection signal="interacted" from="Player" to="." method="_on_player_interacted"]
-
-[editable path="LevelManager/Laboratory"]
-[editable path="LevelManager/Laboratory/Scientist"]
