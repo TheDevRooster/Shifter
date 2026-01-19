@@ -8,14 +8,13 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	#print("running")
 	pass
 
 
 
-
 func start_dialogue(dialogue):
-	print("starting Dialogue from UI")
-	dialogue_box.text.text = dialogue
-	dialogue_box.show()
-	get_tree().paused = true
-	
+	dialogue_box.start_dialogue(dialogue)
+
+func accessed_terminal():
+	terminal_console.open()
