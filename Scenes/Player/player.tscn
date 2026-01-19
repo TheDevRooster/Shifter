@@ -86,6 +86,7 @@ height = 80.62501
 scale = Vector2(0.06896638, 0.0744186)
 script = ExtResource("1_a3d8c")
 SPEED = 40.0
+debug = true
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("player", "current_state")]
 script = ExtResource("7_0u5uq")
@@ -162,10 +163,16 @@ zoom = Vector2(8.41, 8.41)
 [node name="PhaseTimer" type="Timer" parent="."]
 wait_time = 5.0
 
+[node name="CurrentState" type="Label" parent="."]
+offset_left = -115.99855
+offset_top = -120.93752
+offset_right = -75.99855
+offset_bottom = -97.93752
+scale = Vector2(5.9283314, 1.6573118)
+
 [connection signal="on_hit" from="." to="." method="_on_on_hit"]
+[connection signal="player_attacked" from="." to="StateMachine" method="_on_player_player_attacked"]
 [connection signal="entity_hit" from="HitboxComponent" to="." method="_on_hitbox_component_entity_hit"]
 [connection signal="area_entered" from="InteractZone" to="." method="_on_interact_zone_area_entered"]
 [connection signal="area_exited" from="InteractZone" to="." method="_on_interact_zone_area_exited"]
 [connection signal="timeout" from="PhaseTimer" to="." method="_on_phase_timer_timeout"]
-
-[editable path="Phases/Wolf"]
