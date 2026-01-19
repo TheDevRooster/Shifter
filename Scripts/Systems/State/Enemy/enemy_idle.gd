@@ -1,7 +1,7 @@
 extends State
 class_name EnemyIdle
 
-
+var player: CharacterBody2D
 @export var enemy: CharacterBody2D
 @export var move_speed:= 10.0  
 @onready var animated_sprite_2d: AnimatedSprite2D = $"../../AnimatedSprite2D"
@@ -15,7 +15,6 @@ func randomize_wander():
 	wander_time = randf_range(1,3)
 
 func Enter():
-	print(player)
 	animated_sprite_2d.play("Idle")
 	randomize_wander()
 	player = get_tree().get_first_node_in_group("Player")

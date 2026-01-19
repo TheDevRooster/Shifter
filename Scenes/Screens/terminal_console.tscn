@@ -1,11 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dm53uf64su6ue"]
+[gd_scene load_steps=4 format=3 uid="uid://dm53uf64su6ue"]
 
-[ext_resource type="Script" uid="uid://ck4bmipu18egi" path="res://Scripts/Screens/Terminal/terminal_console.gd" id="1_fj2rq"]
-[ext_resource type="Texture2D" uid="uid://bl30422w1348v" path="res://Assets/Aesprite Stuff/Terminal_Logo.png" id="2_u2ci3"]
-[ext_resource type="Texture2D" uid="uid://y1nxh47p0bgw" path="res://Assets/Aesprite Stuff/Terminal_Background.png" id="2_v116p"]
-[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="4_0pir5"]
-[ext_resource type="Script" uid="uid://c0v5i82g7bka1" path="res://Scripts/Screens/Terminal/terminal_phase_option.gd" id="4_af0jk"]
-[ext_resource type="Script" uid="uid://cbhi41sfecwea" path="res://Scripts/Screens/Terminal/terminal_phase_slot.gd" id="5_0ge5m"]
+[ext_resource type="Script" uid="uid://ck4bmipu18egi" path="res://Scripts/Screens/terminal_console.gd" id="1_fj2rq"]
+
+[sub_resource type="Theme" id="Theme_fj2rq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fj2rq"]
+bg_color = Color(0.8518581, 0.5040255, 0.11026312, 1)
 
 [node name="TerminalConsole" type="Control"]
 process_mode = 3
@@ -17,104 +17,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_fj2rq")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 10
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
-layout_mode = 2
-texture = ExtResource("2_v116p")
-expand_mode = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.98300004
-anchor_bottom = 0.9850001
-offset_left = 20.0
-offset_top = 10.0
-offset_right = -0.41601563
-offset_bottom = -0.2800293
-alignment = 1
-
-[node name="Sprite2D" type="Sprite2D" parent="VBoxContainer"]
-texture_filter = 1
-position = Vector2(551, 84.00001)
-scale = Vector2(0.92801386, 0.48867926)
-texture = ExtResource("2_u2ci3")
-
-[node name="ButtonsContainer" type="HBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="ExitButton" type="Button" parent="VBoxContainer/ButtonsContainer"]
-custom_minimum_size = Vector2(200, 200)
-layout_mode = 2
-text = "EXIT
-"
-
-[node name="PhaseContainer" type="VBoxContainer" parent="VBoxContainer/ButtonsContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="PhaseSlots" type="HBoxContainer" parent="VBoxContainer/ButtonsContainer/PhaseContainer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-alignment = 1
-
-[node name="Slot1" type="Panel" parent="VBoxContainer/ButtonsContainer/PhaseContainer/PhaseSlots"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-
-[node name="Slot1Image" type="Sprite2D" parent="VBoxContainer/ButtonsContainer/PhaseContainer/PhaseSlots/Slot1"]
-position = Vector2(49.75, 50.75)
-scale = Vector2(0.74609363, 0.74609363)
-texture = ExtResource("4_0pir5")
-script = ExtResource("5_0ge5m")
-slot_position = Vector2(419, 273)
-
-[node name="Panel2" type="Panel" parent="VBoxContainer/ButtonsContainer/PhaseContainer/PhaseSlots"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-
-[node name="Panel3" type="Panel" parent="VBoxContainer/ButtonsContainer/PhaseContainer/PhaseSlots"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-
-[node name="Panel4" type="Panel" parent="VBoxContainer/ButtonsContainer/PhaseContainer/PhaseSlots"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-
-[node name="PhaseOptions" type="HBoxContainer" parent="VBoxContainer/ButtonsContainer/PhaseContainer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-alignment = 1
-
-[node name="Option1" type="Panel" parent="VBoxContainer/ButtonsContainer/PhaseContainer/PhaseOptions"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-
-[node name="Option2Image" type="Sprite2D" parent="VBoxContainer/ButtonsContainer/PhaseContainer/PhaseOptions/Option1"]
-process_mode = 3
-texture_filter = 1
-position = Vector2(50, 50)
-scale = Vector2(0.7421877, 0.7421877)
-texture = ExtResource("4_0pir5")
-script = ExtResource("4_af0jk")
-
-[node name="Option2" type="Panel" parent="VBoxContainer/ButtonsContainer/PhaseContainer/PhaseOptions"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/ButtonsContainer/PhaseContainer/PhaseOptions/Option2"]
+[node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -122,26 +25,33 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Option2" type="Sprite2D" parent="VBoxContainer/ButtonsContainer/PhaseContainer/PhaseOptions/Option2/MarginContainer"]
-process_mode = 3
-texture_filter = 1
-position = Vector2(50, 50)
-scale = Vector2(0.7421877, 0.7421877)
-texture = ExtResource("4_0pir5")
-script = ExtResource("4_af0jk")
-
-[node name="Option3" type="Panel" parent="VBoxContainer/ButtonsContainer/PhaseContainer/PhaseOptions"]
-custom_minimum_size = Vector2(100, 100)
+[node name="Panel" type="Panel" parent="CenterContainer"]
+custom_minimum_size = Vector2(700, 300)
 layout_mode = 2
+theme = SubResource("Theme_fj2rq")
+theme_override_styles/panel = SubResource("StyleBoxFlat_fj2rq")
 
-[node name="Option4" type="Panel" parent="VBoxContainer/ButtonsContainer/PhaseContainer/PhaseOptions"]
-custom_minimum_size = Vector2(100, 100)
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer"]
 layout_mode = 2
+alignment = 1
 
-[node name="SubmitButton" type="Button" parent="VBoxContainer/ButtonsContainer"]
-custom_minimum_size = Vector2(200, 200)
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "SUBMIT
-"
+text = "test"
+horizontal_alignment = 1
 
-[connection signal="change_option_home" from="VBoxContainer/ButtonsContainer/PhaseContainer/PhaseSlots/Slot1/Slot1Image" to="VBoxContainer/ButtonsContainer/PhaseContainer/PhaseOptions/Option1/Option2Image" method="_on_slot_1_image_change_option_home"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1

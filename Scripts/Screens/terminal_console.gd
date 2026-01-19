@@ -11,9 +11,11 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("player_interact"):
 		close()
 
+
 func open():
 	if DialogueDB.Dialogue_active:
 		return
+	
 	just_opened = true
 	self.show()
 	WorldData.used_console = true

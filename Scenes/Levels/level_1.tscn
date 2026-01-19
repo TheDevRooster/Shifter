@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=4 uid="uid://gkdh0516a4rx"]
+[gd_scene load_steps=6 format=4 uid="uid://gkdh0516a4rx"]
 
 [ext_resource type="Texture2D" uid="uid://ctyywcehhwfwi" path="res://Assets/SpriteSheet/Lab.png" id="1_tlcug"]
 [ext_resource type="Script" uid="uid://b8ew7lp84bay" path="res://Scripts/Levels/level_1.gd" id="2_4dpyx"]
 [ext_resource type="PackedScene" uid="uid://ka44oc5tm5l6" path="res://Scenes/Levels/door.tscn" id="3_iixi8"]
-[ext_resource type="PackedScene" uid="uid://b4u4xjru66mag" path="res://Scenes/Systems/enemy_spawner.tscn" id="4_iixi8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4dpyx"]
 texture = ExtResource("1_tlcug")
@@ -67,14 +66,6 @@ tile_set = SubResource("TileSet_3mqfk")
 script = ExtResource("2_4dpyx")
 spawnpoint = Vector2(9, 9)
 
-[node name="EnemyManager" type="Node" parent="."]
-
-[node name="EnemySpawner" parent="EnemyManager" node_paths=PackedStringArray("enemy_manager") instance=ExtResource("4_iixi8")]
-position = Vector2(95, 75)
-enemy_manager = NodePath("../Enemies")
-
-[node name="Enemies" type="Node" parent="EnemyManager"]
-
 [node name="LabDoor" parent="." instance=ExtResource("3_iixi8")]
-position = Vector2(200, 12)
+position = Vector2(200, 14)
 connected_area = "res://Scenes/Levels/laboratory.tscn"

@@ -1,24 +1,20 @@
 class_name Player
 extends CharacterBody2D
 
-
-signal on_hit()
-
-@onready var current_state: Label = $CurrentState
 @onready var player_hitbox: HitboxComponent = $HitboxComponent
 @onready var player_collision_box: CollisionShape2D = $CollisionShape2D
-@onready var state_machine: StateMachine = $StateMachine
+
 @onready var phases: Node = $Phases
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var interact_area: Area2D = $InteractZone
 @onready var interact_icon: Sprite2D = $InteractNotification
 @onready var animator: AnimatedSprite2D = $AnimationSprite
 @export var SPEED :float = 300.0
-@export var debug: bool
-var just_hit = false
+var just_hit: bool
 
 signal interacted(target)
-signal player_attacked(attack)
+
+
 var can_interact = false
 var current_interaction
 var facing_direction = Vector2.UP
@@ -26,29 +22,68 @@ var current_phase
 
 func _ready() -> void:
 	current_phase = phases.get_child(0)
-	if debug:
-		current_state.show()
+	#print(current_phase)
 	
-
-
 	
 func _physics_process(_delta: float) -> void:
-	if debug:
-		current_state.text = str(state_machine.current_state)
+
+	#### Start of player Movement ####
+
+	var direction := Input.get_vector("player_move_left", "player_move_right", "player_move_up", "player_move_down")
+	if direction:
+		if just_hit:
+			return
+		facing_direction = direction.normalized()
+		velocity = direction * SPEED
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.y = move_toward(velocity.y, 0, SPEED)
+
+	move_and_slide()
+
+	#### End of player Movement ####
+
+
+	#### Handles Movement of player interaction Box ####
+
+	if direction.x > 0:
+		interact_area.rotation_degrees = 0
+	elif direction.x < 0:
+		interact_area.rotation_degrees = 180
+	elif direction.y > 0:
+		interact_area.rotation_degrees = 90
+	elif direction.y < 0:
+		interact_area.rotation_degrees = 270
+
+
+	####End of Movement of player interaction Box
+
+	#### Start of player Inputs ####
+
 	# All player inputs are handled via project input and then written in functions below.
+
 	if Input.is_action_just_pressed("player_ability_1"):
-		player_attacked.emit("attack1")
+		current_phase.attack1(facing_direction,current_phase)
 	if Input.is_action_just_pressed("player_ability_2"):
-		player_attacked.emit("attack2")
+		current_phase.attack2(facing_direction, current_phase)
 	if Input.is_action_just_pressed("player_interact") and can_interact:
 		interacted.emit(current_interaction)
 
 	#### End of player Inputs ####
 
+
+func invincibilty_frames(duration: float):
+	player_hitbox.monitoring = false
+	player_collision_box.disabled = true
+	await get_tree().create_timer(duration).timeout
+	player_hitbox.monitoring = true
+	player_collision_box.disabled = false
+	just_hit = false
 func phase_shift():
 	print("shifting")
 	phases.move_child(phases.get_child(0),phases.get_child_count() - 1)
 	current_phase = phases.get_child(0)
+	
 
 
 func _on_interact_zone_area_entered(area: Area2D) -> void:
@@ -60,7 +95,6 @@ func _on_interact_zone_area_entered(area: Area2D) -> void:
 				current_interaction = area
 				#print(current_interaction)
 	else:
-		
 		pass
 
 
@@ -80,16 +114,10 @@ func _on_attack_component_attacked() -> void:
 
 
 func _on_phase_timer_timeout() -> void:
-	print("shifting")
 	phase_shift()
 	#print(current_phase)
 	
 
+
 func _on_hitbox_component_entity_hit() -> void:
 	just_hit = true
-
-
-func _on_on_hit() -> void:
-	if just_hit:
-		return
-	state_machine.on_state_changed(state_machine.current_state, 'knockback')

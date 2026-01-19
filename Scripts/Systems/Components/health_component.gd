@@ -26,6 +26,7 @@ func _ready() -> void:
 
 func take_damage(damage_amount):
 	if current_health - damage_amount <= 0:
+		get_parent().queue_free()
 		died.emit()
 	print("test")
 	hit.emit()
