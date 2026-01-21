@@ -3,7 +3,7 @@ extends State
 
 
 func Enter():
-	#Play Animation
+	player.animator.play("idle")
 	pass
 	
 func Update(_delta: float):

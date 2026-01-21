@@ -1,79 +1,23 @@
-[gd_scene load_steps=23 format=3 uid="uid://ynid5vi3tdfn"]
+[gd_scene load_steps=17 format=3 uid="uid://ynid5vi3tdfn"]
 
 [ext_resource type="Script" uid="uid://u1ndfthdgsyb" path="res://Scripts/Player/player.gd" id="1_a3d8c"]
 [ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="2_xpcdj"]
 [ext_resource type="PackedScene" uid="uid://cn4ymqb6micuy" path="res://Scenes/Systems/Components/health_component.tscn" id="3_xpcdj"]
-[ext_resource type="Texture2D" uid="uid://ctyywcehhwfwi" path="res://Assets/SpriteSheet/Lab.png" id="5_dd0ac"]
 [ext_resource type="Script" uid="uid://inoyu7mkw1l" path="res://Scripts/Player/States/knockback.gd" id="5_jhyir"]
-[ext_resource type="Script" uid="uid://2kgap464enm4" path="res://Scripts/Player/States/PlayerAttack.gd" id="6_74mp2"]
+[ext_resource type="Script" uid="uid://2kgap464enm4" path="res://Scripts/Player/States/PlayerAttack1.gd" id="6_74mp2"]
 [ext_resource type="PackedScene" uid="uid://cfy28w6k4jbpt" path="res://Scenes/Systems/Components/hitbox_component.tscn" id="6_dd0ac"]
 [ext_resource type="Script" uid="uid://b4arysawvujwa" path="res://Scripts/Systems/state_machine.gd" id="7_0u5uq"]
 [ext_resource type="PackedScene" uid="uid://djyvgjoug1xen" path="res://Scenes/Player/Phases/WolfForm.tscn" id="7_74mp2"]
+[ext_resource type="Script" uid="uid://bp6m876eys8gy" path="res://Scripts/Player/States/PlayerAttack2.gd" id="7_oikmp"]
 [ext_resource type="Script" uid="uid://baotwb2x3hxf0" path="res://Scripts/Player/States/playeridle.gd" id="8_jlvik"]
 [ext_resource type="Script" uid="uid://bcdweo6vtos41" path="res://Scripts/Player/States/moving.gd" id="9_gk6dx"]
-
-[sub_resource type="Animation" id="Animation_0u5uq"]
-resource_name = "test"
-step = 0.014
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_jlvik"]
-_data = {
-&"test": SubResource("Animation_0u5uq")
-}
+[ext_resource type="PackedScene" uid="uid://dphcltst4tiq3" path="res://Scenes/Player/Phases/BearForm.tscn" id="9_oikmp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dd0ac"]
 size = Vector2(115.998566, 107.50002)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gk6dx"]
-atlas = ExtResource("5_dd0ac")
-region = Rect2(128, 64, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jhyir"]
-atlas = ExtResource("5_dd0ac")
-region = Rect2(192, 64, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_74mp2"]
-atlas = ExtResource("5_dd0ac")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_oikmp"]
-atlas = ExtResource("5_dd0ac")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_06tpx"]
-atlas = ExtResource("5_dd0ac")
-region = Rect2(128, 0, 64, 64)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_a3d8c"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gk6dx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jhyir")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_74mp2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_oikmp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_06tpx")
-}],
-"loop": true,
-"name": &"Attack",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_xpcdj")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
+animations = []
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a3d8c"]
 radius = 41.01219
@@ -90,6 +34,7 @@ debug = true
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("player", "current_state")]
 script = ExtResource("7_0u5uq")
+debug = true
 player = NodePath("..")
 current_state = NodePath("Idle")
 metadata/_custom_type_script = "uid://b4arysawvujwa"
@@ -108,22 +53,25 @@ knockback_timer = NodePath("KnockbackTimer")
 wait_time = 0.1
 one_shot = true
 
-[node name="Attack" type="Node" parent="StateMachine"]
+[node name="Attack1" type="Node" parent="StateMachine"]
 script = ExtResource("6_74mp2")
+
+[node name="Attack2" type="Node" parent="StateMachine"]
+script = ExtResource("7_oikmp")
 
 [node name="Phases" type="Node2D" parent="."]
 
 [node name="Wolf" parent="Phases" instance=ExtResource("7_74mp2")]
+visible = false
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_jlvik")
-}
+[node name="Bear" parent="Phases" instance=ExtResource("9_oikmp")]
+visible = false
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_xpcdj")]
 health = 300
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_dd0ac")]
+editor_description = ""
 scale = Vector2(0.9481825, 1.0302303)
 collision_layer = 4
 health_component = NodePath("../HealthComponent")
@@ -135,9 +83,10 @@ shape = SubResource("RectangleShape2D_dd0ac")
 debug_color = Color(0.43926212, 0.5994434, 0, 0.41960785)
 
 [node name="AnimationSprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
 scale = Vector2(0.9999999, 0.9999999)
 sprite_frames = SubResource("SpriteFrames_a3d8c")
-autoplay = "default"
+animation = &""
 
 [node name="InteractZone" type="Area2D" parent="."]
 
@@ -152,7 +101,7 @@ position = Vector2(0, -93)
 scale = Vector2(0.2890625, 0.2890625)
 texture = ExtResource("2_xpcdj")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="PlayerPhysicsBox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 26.875002)
 shape = SubResource("CapsuleShape2D_xpcdj")
 debug_color = Color(0.9537192, 0.21786791, 1.1551381e-06, 0.41960785)
@@ -162,6 +111,7 @@ zoom = Vector2(8.41, 8.41)
 
 [node name="PhaseTimer" type="Timer" parent="."]
 wait_time = 5.0
+autostart = true
 
 [node name="CurrentState" type="Label" parent="."]
 offset_left = -115.99855
@@ -172,6 +122,7 @@ scale = Vector2(5.9283314, 1.6573118)
 
 [connection signal="on_hit" from="." to="." method="_on_on_hit"]
 [connection signal="player_attacked" from="." to="StateMachine" method="_on_player_player_attacked"]
+[connection signal="attack_finished" from="Phases/Wolf" to="StateMachine" method="_on_wolf_attack_finished"]
 [connection signal="entity_hit" from="HitboxComponent" to="." method="_on_hitbox_component_entity_hit"]
 [connection signal="area_entered" from="InteractZone" to="." method="_on_interact_zone_area_entered"]
 [connection signal="area_exited" from="InteractZone" to="." method="_on_interact_zone_area_exited"]

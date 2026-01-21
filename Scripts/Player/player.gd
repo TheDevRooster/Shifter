@@ -6,7 +6,7 @@ signal on_hit()
 
 @onready var current_state: Label = $CurrentState
 @onready var player_hitbox: HitboxComponent = $HitboxComponent
-@onready var player_collision_box: CollisionShape2D = $CollisionShape2D
+@onready var player_collision_box: CollisionShape2D = $PlayerPhysicsBox
 @onready var state_machine: StateMachine = $StateMachine
 @onready var phases: Node = $Phases
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -15,10 +15,21 @@ signal on_hit()
 @onready var animator: AnimatedSprite2D = $AnimationSprite
 @export var SPEED :float = 300.0
 @export var debug: bool
-var just_hit = false
 
+
+var animation_names = {
+	"Running": "Running",
+	'Idle': "idle",
+	'Moving': 'Moving',
+	'Attack1': "Attack1",
+	'Attack2': 'Attack2',
+	'Death': 'Death'
+	}
+	
+var just_hit = false
 signal interacted(target)
 signal player_attacked(attack)
+
 var can_interact = false
 var current_interaction
 var facing_direction = Vector2.UP
@@ -26,13 +37,14 @@ var current_phase
 
 func _ready() -> void:
 	current_phase = phases.get_child(0)
+	set_animation()
 	if debug:
 		current_state.show()
 	
 
 
 	
-func _physics_process(_delta: float) -> void:
+func _process(_delta: float) -> void:
 	if debug:
 		current_state.text = str(state_machine.current_state)
 	# All player inputs are handled via project input and then written in functions below.
@@ -49,8 +61,15 @@ func phase_shift():
 	print("shifting")
 	phases.move_child(phases.get_child(0),phases.get_child_count() - 1)
 	current_phase = phases.get_child(0)
-
-
+	set_animation()
+	
+	
+func set_animation():
+	if current_phase.animated_sprite:
+		animator.sprite_frames = current_phase.animated_sprite.sprite_frames
+		animator.scale = Vector2(8,8)
+		
+		
 func _on_interact_zone_area_entered(area: Area2D) -> void:
 	if area is InteractZone:
 		if area.player_interactable:

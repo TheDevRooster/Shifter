@@ -7,7 +7,7 @@ extends Node
 var next_state: State
 var states: Dictionary = {}
 var player_can_attack: bool = true
-
+var player_current_phase
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -51,5 +51,10 @@ func on_state_changed(state, new_state):
 	
 func _on_player_player_attacked(attack: Variant) -> void:
 	if player_can_attack:
-		on_state_changed(current_state, "attack")
+		player_can_attack = false
+		on_state_changed(current_state, attack)
 		
+
+
+func _on_wolf_attack_finished() -> void:
+	player_can_attack = true
