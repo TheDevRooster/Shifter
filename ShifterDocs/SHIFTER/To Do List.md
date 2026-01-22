@@ -3,7 +3,7 @@
 
 
 
-- [ ] Document Everything you have made already in Obsidian
+- [ ] [[Documentation]]
 - [ ] [[Art]]
 - [ ] [[Player]]
 - [ ] [[Enemies]]

@@ -1,10 +1,11 @@
 - [ ] Tranformation between Phases
 	- [ ] Changing Every Node needed. Using Phases as a robust Resource Node
+	- [ ] CUSTOM RESOURCES ARE GOATED DO THAT STUPID
 		- [x] Animation
 		- [ ] Attack Hitboxs
 		- [ ] Player CollisionShape
 	- [ ] Enable the next phase
-	- [ ] Particle Effect of ?  smoke ? between transformations 
+	- [x] Particle Effect of smoke between transformations 
 - [ ] [[Phases]]
 - [ ] [[Wolf Form]]
 - [ ] [[Bear Form]]
@@ -37,6 +38,7 @@ Set animation to pull from player current phase
 3. ~~Setting a check so player cant attack during an attack!
 4. AnimatedNode2D.SpriteFrames Seems to be a solid method to just switch between phases
 	1. Instead of moving the whole node just move the saved sprite frames to the current player!
+		1. DO THIS FOR EVERYTHING ELSE?!
 	2. ~~Get sprite data from Phase
 	3. ~~Sprites too small when Transformed in. Need to figure out how to also import size or resize images
 5. Implement animation system

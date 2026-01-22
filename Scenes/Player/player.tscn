@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://ynid5vi3tdfn"]
+[gd_scene load_steps=19 format=3 uid="uid://ynid5vi3tdfn"]
 
 [ext_resource type="Script" uid="uid://u1ndfthdgsyb" path="res://Scripts/Player/player.gd" id="1_a3d8c"]
 [ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="2_xpcdj"]
@@ -12,6 +12,8 @@
 [ext_resource type="Script" uid="uid://baotwb2x3hxf0" path="res://Scripts/Player/States/playeridle.gd" id="8_jlvik"]
 [ext_resource type="Script" uid="uid://bcdweo6vtos41" path="res://Scripts/Player/States/moving.gd" id="9_gk6dx"]
 [ext_resource type="PackedScene" uid="uid://dphcltst4tiq3" path="res://Scenes/Player/Phases/BearForm.tscn" id="9_oikmp"]
+[ext_resource type="PackedScene" uid="uid://ddipbogscfqhk" path="res://Scenes/Player/Phases/RoosterForm.tscn" id="10_06tpx"]
+[ext_resource type="Texture2D" uid="uid://gtqnrkjiir4b" path="res://Assets/Animals/PhaseParticles/Phase_Shift_cloud.png" id="14_7g0yx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dd0ac"]
 size = Vector2(115.998566, 107.50002)
@@ -67,6 +69,8 @@ visible = false
 [node name="Bear" parent="Phases" instance=ExtResource("9_oikmp")]
 visible = false
 
+[node name="Rooster" parent="Phases" instance=ExtResource("10_06tpx")]
+
 [node name="HealthComponent" parent="." instance=ExtResource("3_xpcdj")]
 health = 300
 
@@ -119,6 +123,29 @@ offset_top = -120.93752
 offset_right = -75.99855
 offset_bottom = -97.93752
 scale = Vector2(5.9283314, 1.6573118)
+
+[node name="PhaseShiftParticle" type="CPUParticles2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 26.875002)
+emitting = false
+amount = 300
+texture = ExtResource("14_7g0yx")
+lifetime = 0.23
+one_shot = true
+explosiveness = 0.55
+randomness = 0.19
+local_coords = true
+draw_order = 1
+emission_shape = 2
+emission_sphere_radius = 28.14
+direction = Vector2(1, 1)
+spread = 180.0
+gravity = Vector2(0, 60)
+initial_velocity_min = 412.38
+initial_velocity_max = 546.4
+linear_accel_min = 1.0
+linear_accel_max = 15.0
+angle_max = 219.9
 
 [connection signal="on_hit" from="." to="." method="_on_on_hit"]
 [connection signal="player_attacked" from="." to="StateMachine" method="_on_player_player_attacked"]

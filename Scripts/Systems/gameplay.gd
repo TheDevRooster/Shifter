@@ -1,5 +1,5 @@
 extends Node2D
-
+class_name GamePlay
 @onready var level_manager: Node = $LevelManager
 @onready var player: Player = $Player
 @onready var ui = $UI

@@ -4,6 +4,8 @@ extends CharacterBody2D
 
 signal on_hit()
 
+
+@onready var phase_shift_particle = $PhaseShiftParticle
 @onready var current_state: Label = $CurrentState
 @onready var player_hitbox: HitboxComponent = $HitboxComponent
 @onready var player_collision_box: CollisionShape2D = $PlayerPhysicsBox
@@ -65,6 +67,7 @@ func phase_shift():
 	
 	
 func set_animation():
+	phase_shift_particle.emitting = true
 	if current_phase.animated_sprite:
 		animator.sprite_frames = current_phase.animated_sprite.sprite_frames
 		animator.scale = Vector2(8,8)
