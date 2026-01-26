@@ -2,9 +2,10 @@
 
 
 - [ ] Movement
+	- [ ] Speed
+	- [ ] Size
 - [ ] Attack 1
 - [ ] Attack 2
-- [ ] Timer For Timeout to next phase
-- [ ] ? Special Ability ?
-- [ ] How to Handle Animations 
-- [ ] 
+- [x] Timer For Timeout to next phase
+- [x] How to Handle Animations 
+- [ ] Create a Resource that holds the data for damage and such

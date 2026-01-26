@@ -50,8 +50,6 @@ func on_state_changed(state, new_state):
 	
 	
 func _on_player_player_attacked(attack: Variant) -> void:
-	if player_can_attack:
-		player_can_attack = false
 		on_state_changed(current_state, attack)
 		
 

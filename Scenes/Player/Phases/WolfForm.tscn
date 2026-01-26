@@ -1,10 +1,65 @@
-[gd_scene load_steps=30 format=3 uid="uid://djyvgjoug1xen"]
+[gd_scene load_steps=45 format=3 uid="uid://djyvgjoug1xen"]
 
 [ext_resource type="Script" uid="uid://cgfdealb6yenf" path="res://Scripts/Player/wolf.gd" id="1_dveg5"]
+[ext_resource type="Texture2D" uid="uid://cl6rr8l5js3cg" path="res://Assets/Animals/Wolf/tf_color/wolf_brown_tf.png" id="2_0r7u6"]
 [ext_resource type="Texture2D" uid="uid://116p7egc6f0h" path="res://Assets/Animals/Wolf/full_color/wolf_gray_full.png" id="2_po2wh"]
+[ext_resource type="PackedScene" uid="uid://cfy28w6k4jbpt" path="res://Scenes/Systems/Components/hitbox_component.tscn" id="3_6jpg4"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_amlgg"]
-radius = 246.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0r7u6"]
+radius = 22.0
+height = 94.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6jpg4"]
+radius = 39.0
+height = 78.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tamgo"]
+atlas = ExtResource("2_0r7u6")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8oui"]
+atlas = ExtResource("2_0r7u6")
+region = Rect2(32, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qlv2q"]
+atlas = ExtResource("2_0r7u6")
+region = Rect2(64, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gwfmt"]
+atlas = ExtResource("2_0r7u6")
+region = Rect2(96, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uelqe"]
+atlas = ExtResource("2_0r7u6")
+region = Rect2(128, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bapxc"]
+atlas = ExtResource("2_0r7u6")
+region = Rect2(160, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wcqy1"]
+atlas = ExtResource("2_0r7u6")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3l73u"]
+atlas = ExtResource("2_0r7u6")
+region = Rect2(192, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qw3v8"]
+atlas = ExtResource("2_0r7u6")
+region = Rect2(192, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r27gu"]
+atlas = ExtResource("2_0r7u6")
+region = Rect2(192, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jxato"]
+atlas = ExtResource("2_0r7u6")
+region = Rect2(192, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q0k3v"]
+atlas = ExtResource("2_0r7u6")
+region = Rect2(192, 160, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_po2wh"]
 atlas = ExtResource("2_po2wh")
@@ -108,6 +163,52 @@ region = Rect2(224, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_go4ml"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tamgo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8oui")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qlv2q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gwfmt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uelqe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bapxc")
+}],
+"loop": false,
+"name": &"Attack1",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wcqy1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3l73u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qw3v8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r27gu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jxato")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q0k3v")
+}],
+"loop": true,
+"name": &"Attack2",
+"speed": 15.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_po2wh")
@@ -217,17 +318,33 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Attack1Hitbox"]
-shape = SubResource("CircleShape2D_amlgg")
+position = Vector2(121, -2)
+shape = SubResource("CapsuleShape2D_0r7u6")
 disabled = true
+debug_color = Color(0.95872575, 2.7915835e-06, 0.5282163, 0.41960785)
 
 [node name="AttackCooldown" type="Timer" parent="."]
 wait_time = 0.3
 one_shot = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="HitboxComponent" parent="." instance=ExtResource("3_6jpg4")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(-1, -21)
+shape = SubResource("CapsuleShape2D_6jpg4")
+
+[node name="VisualBranch" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="VisualBranch"]
 visible = false
 texture_filter = 1
-position = Vector2(0, -70.00001)
+position = Vector2(0, -67)
 scale = Vector2(8, 8)
 sprite_frames = SubResource("SpriteFrames_go4ml")
-animation = &"idle"
+animation = &"Attack2"
+autoplay = "Attack2"
+frame = 4
+frame_progress = 0.7723427
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="VisualBranch"]
+root_node = NodePath("../..")

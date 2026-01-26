@@ -7,7 +7,7 @@
 - [ ] [[Art]]
 - [ ] [[Player]]
 - [ ] [[Enemies]]
-- [ ] HUD
+- [ ] [[UI]]
 - [ ] Level Design
 - [ ] Dialogue System
 - [ ] Tie Animation System with Name of Current Phase to automate phase changes. (strCurrentPhase + strCurrentState)

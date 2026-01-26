@@ -5,17 +5,17 @@ extends CharacterBody2D
 signal on_hit()
 
 
-@onready var phase_shift_particle = $PhaseShiftParticle
+@export var SPEED :float = 300.0
+@onready var state_machine: StateMachine = $StateMachine
 @onready var current_state: Label = $CurrentState
 @onready var player_hitbox: HitboxComponent = $HitboxComponent
 @onready var player_collision_box: CollisionShape2D = $PlayerPhysicsBox
-@onready var state_machine: StateMachine = $StateMachine
 @onready var phases: Node = $Phases
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var phase_shift_particle = $PhaseShiftParticle
 @onready var interact_area: Area2D = $InteractZone
 @onready var interact_icon: Sprite2D = $InteractNotification
 @onready var animator: AnimatedSprite2D = $AnimationSprite
-@export var SPEED :float = 300.0
 @export var debug: bool
 
 
@@ -41,7 +41,7 @@ func _ready() -> void:
 	current_phase = phases.get_child(0)
 	set_animation()
 	if debug:
-		current_state.show()
+		current_state.show()	
 	
 
 
@@ -64,14 +64,17 @@ func phase_shift():
 	phases.move_child(phases.get_child(0),phases.get_child_count() - 1)
 	current_phase = phases.get_child(0)
 	set_animation()
-	
+	set_hitbox()
 	
 func set_animation():
 	phase_shift_particle.emitting = true
 	if current_phase.animated_sprite:
 		animator.sprite_frames = current_phase.animated_sprite.sprite_frames
 		animator.scale = Vector2(8,8)
-		
+
+func set_hitbox():
+	if current_phase.hit_box:
+		player_hitbox.collision_shape.shape = current_phase.hit_box.collision_shape.shape
 		
 func _on_interact_zone_area_entered(area: Area2D) -> void:
 	if area is InteractZone:

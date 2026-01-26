@@ -1,7 +1,8 @@
-[gd_scene load_steps=30 format=3 uid="uid://dphcltst4tiq3"]
+[gd_scene load_steps=32 format=3 uid="uid://dphcltst4tiq3"]
 
 [ext_resource type="Script" uid="uid://cgfdealb6yenf" path="res://Scripts/Player/wolf.gd" id="1_eu3h1"]
 [ext_resource type="Texture2D" uid="uid://ttuly4bvftrx" path="res://Assets/Animals/Wolf/full_color/wolf_brown_full.png" id="2_63ie8"]
+[ext_resource type="PackedScene" uid="uid://cfy28w6k4jbpt" path="res://Scenes/Systems/Components/hitbox_component.tscn" id="3_ocdlm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_amlgg"]
 radius = 246.0
@@ -209,6 +210,10 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_63ie8"]
+radius = 182.0
+height = 424.0
+
 [node name="Bear" type="Node2D"]
 script = ExtResource("1_eu3h1")
 
@@ -231,3 +236,9 @@ scale = Vector2(8, 8)
 sprite_frames = SubResource("SpriteFrames_go4ml")
 animation = &"idle"
 frame_progress = 0.9849812
+
+[node name="HitboxComponent" parent="." instance=ExtResource("3_ocdlm")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(-1, -21)
+shape = SubResource("CapsuleShape2D_63ie8")

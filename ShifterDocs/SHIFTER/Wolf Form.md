@@ -2,14 +2,14 @@
 
 
 - [ ] Animation
-	- [ ] Find Temporary Animatin Set to Get going
+	- [x] Find Temporary Animatin Set to Get going
 	- [ ] Idle
 	- [ ] Moving
 	- [ ] Attack1 
 	- [ ] Attack2 
 	- [ ] Death
 	- [ ] *? Dash ?* 
-	- [ ] Morph into Wolf
+	- [x] Morph into Wolf
 - [ ] Attack1 (Bite the closest person with cone vision)
 	- [ ] Cone In front for Range
 	- [ ] Direction character is facing
